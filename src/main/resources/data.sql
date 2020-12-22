@@ -1,5 +1,5 @@
-insert into AUTHOR (`FULLNAME`) values ('Иванов Иван Иванович');
-insert into AUTHOR (`FULLNAME`) values ('Сидоров Сидоро Сидорович');
+insert into AUTHOR (`FULLNAME`) values ('Иванов');
+insert into AUTHOR (`FULLNAME`) values ('Сидоров');
 
 insert into GENRE (`NAME`) values ('Фантастика');
 insert into GENRE (`NAME`) values ('Детектив');

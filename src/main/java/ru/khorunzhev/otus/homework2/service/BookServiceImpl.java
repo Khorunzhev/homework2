@@ -1,6 +1,5 @@
 package ru.khorunzhev.otus.homework2.service;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
@@ -10,7 +9,7 @@ import ru.khorunzhev.otus.homework2.model.Book;
 @Service
 @RequiredArgsConstructor
 @Log
-public class BookCRUDServiceImpl implements BookCRUDService {
+public class BookServiceImpl implements BookService {
 
     private final BookDao bookDao;
 
