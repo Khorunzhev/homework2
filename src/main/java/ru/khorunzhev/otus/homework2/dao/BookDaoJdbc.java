@@ -57,6 +57,14 @@ public class BookDaoJdbc implements BookDao {
     }
 
     @Override
+    public Book getByTitle(String title) {
+        Map<String, Object> params = Collections.singletonMap("title", title;
+        return namedParameterJdbcOperations.queryForObject(
+                "SELECT * FROM BOOK where TITLE = :title", params, new BookMapper()
+        );
+    }
+
+    @Override
     public List<Book> getAll() {
         return namedParameterJdbcOperations.query("SELECT * FROM BOOK", new BookMapper());
     }

@@ -22,11 +22,15 @@ public class BookCRUDServiceImpl implements BookCRUDService {
 
     @Override
     public Book update(final Book book) {
-        return null;
+        Book updatedBook = bookDao.update(book);
+        log.info(String.format("Book %s is updated", updatedBook));
+        return updatedBook;
     }
 
     @Override
-    public boolean delete(final Book book) {
-        return false;
+    public void delete(final Book book) {
+        Book bookFromDB = bookDao.getByTitle(book.getTitle());
+        bookDao.deleteById(bookFromDB.getId());
+        log.info(String.format("Book %s is deleted", bookFromDB));
     }
 }
