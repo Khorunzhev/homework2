@@ -30,9 +30,9 @@ public class BookDaoJdbc implements BookDao {
 
         SqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("TITLE", book.getTitle())
-                .addValue("FK_AUTHOR_ID", book.getFk_author_id())
-                .addValue("FK_GENRE_ID", book.getFk_genre_id());
-        namedParameterJdbcOperations.update("INSERT INTO BOOK (`TITLE`, FK_AUTHOR_ID, FK_GENRE_ID) values (:TITLE, :FK_AUTHOR_ID, :FK_GENRE_ID)", namedParameters);
+                .addValue("AUTHOR_ID", book.getFk_author_id())
+                .addValue("GENRE_ID", book.getFk_genre_id());
+        namedParameterJdbcOperations.update("INSERT INTO BOOK (`TITLE`, AUTHOR_ID, GENRE_ID) values (:TITLE, :AUTHOR_ID, :GENRE_ID)", namedParameters);
     }
 
     @Override
@@ -40,9 +40,9 @@ public class BookDaoJdbc implements BookDao {
         SqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("ID", book.getId())
                 .addValue("TITLE", book.getTitle())
-                .addValue("FK_AUTHOR_ID", book.getFk_author_id())
-                .addValue("FK_GENRE_ID", book.getFk_genre_id());
-        namedParameterJdbcOperations.update("UPDATE BOOK SET `TITLE`=:TITLE, FK_AUTHOR_ID=:FK_AUTHOR_ID, FK_GENRE_ID=:FK_GENRE_ID WHERE ID=:ID", namedParameters);
+                .addValue("AUTHOR_ID", book.getFk_author_id())
+                .addValue("GENRE_ID", book.getFk_genre_id());
+        namedParameterJdbcOperations.update("UPDATE BOOK SET `TITLE`=:TITLE, AUTHOR_ID=:AUTHOR_ID, GENRE_ID=:GENRE_ID WHERE ID=:ID", namedParameters);
         return getById(book.getId());
     }
 
@@ -56,7 +56,7 @@ public class BookDaoJdbc implements BookDao {
 
     @Override
     public Book getByTitle(String title) {
-        Map<String, Object> params = Collections.singletonMap("title", title;
+        Map<String, Object> params = Collections.singletonMap("title", title);
         return namedParameterJdbcOperations.queryForObject(
                 "SELECT * FROM BOOK where TITLE = :title", params, new BookMapper()
         );
@@ -80,8 +80,8 @@ public class BookDaoJdbc implements BookDao {
         @Override
         public Book mapRow(ResultSet resultSet, int i) throws SQLException {
             long id = resultSet.getLong("ID");
-            long fk_author_id = resultSet.getLong("FK_AUTHOR_ID");
-            long fk_genre_id = resultSet.getLong("FK_GENRE_ID");
+            long fk_author_id = resultSet.getLong("AUTHOR_ID");
+            long fk_genre_id = resultSet.getLong("GENRE_ID");
             String title = resultSet.getString("TITLE");
             return new Book(id, title, fk_author_id, fk_genre_id);
         }

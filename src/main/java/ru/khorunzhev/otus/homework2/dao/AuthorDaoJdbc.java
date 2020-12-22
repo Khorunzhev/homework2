@@ -20,7 +20,7 @@ public class AuthorDaoJdbc implements AuthorDao {
 
     @Override
     public Author getByFullName(String fullname) {
-        Map<String, Object> params = Collections.singletonMap("fullname", fullname;
+        Map<String, Object> params = Collections.singletonMap("fullname", fullname);
         return namedParameterJdbcOperations.queryForObject(
                 "SELECT * FROM AUTHOR where FULLNAME = :fullname", params, new AuthorDaoJdbc.AuthorMapper()
         );

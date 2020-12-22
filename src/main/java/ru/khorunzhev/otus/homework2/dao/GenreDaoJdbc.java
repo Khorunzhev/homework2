@@ -21,7 +21,7 @@ public class GenreDaoJdbc implements GenreDao {
 
     @Override
     public Genre getByName(String name) {
-        Map<String, Object> params = Collections.singletonMap("name", name;
+        Map<String, Object> params = Collections.singletonMap("name", name);
         return namedParameterJdbcOperations.queryForObject(
                 "SELECT * FROM GENRE where NAME = :name", params, new GenreDaoJdbc.GenreMapper()
         );

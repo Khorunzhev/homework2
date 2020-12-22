@@ -1,10 +1,12 @@
 package ru.khorunzhev.otus.homework2.model;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Data
+@Builder
 public class Book {
 
     private final Long id;

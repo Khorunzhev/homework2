@@ -6,5 +6,5 @@ public interface BookCRUDService {
 
     void create(Book book);
     Book update(Book book);
-    void delete(Book book);
+    void delete(String title);
 }

@@ -28,8 +28,8 @@ public class BookCRUDServiceImpl implements BookCRUDService {
     }
 
     @Override
-    public void delete(final Book book) {
-        Book bookFromDB = bookDao.getByTitle(book.getTitle());
+    public void delete(final String title) {
+        Book bookFromDB = bookDao.getByTitle(title);
         bookDao.deleteById(bookFromDB.getId());
         log.info(String.format("Book %s is deleted", bookFromDB));
     }
