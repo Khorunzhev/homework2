@@ -31,11 +31,10 @@ public class BookDaoJdbc implements BookDao {
     public void insert(Book book) {
 
         SqlParameterSource namedParameters = new MapSqlParameterSource()
-                .addValue("ID", book.getId())
                 .addValue("TITLE", book.getTitle())
                 .addValue("FK_AUTHOR_ID", book.getFk_author_id())
                 .addValue("FK_GENRE_ID", book.getFk_genre_id());
-        namedParameterJdbcOperations.update("INSERT INTO BOOK (ID, `TITLE`, FK_AUTHOR_ID, FK_GENRE_ID) values (:ID, :TITLE, :FK_AUTHOR_ID, :FK_GENRE_ID)", namedParameters);
+        namedParameterJdbcOperations.update("INSERT INTO BOOK (`TITLE`, FK_AUTHOR_ID, FK_GENRE_ID) values (:TITLE, :FK_AUTHOR_ID, :FK_GENRE_ID)", namedParameters);
     }
 
     @Override
@@ -45,7 +44,7 @@ public class BookDaoJdbc implements BookDao {
                 .addValue("TITLE", book.getTitle())
                 .addValue("FK_AUTHOR_ID", book.getFk_author_id())
                 .addValue("FK_GENRE_ID", book.getFk_genre_id());
-        namedParameterJdbcOperations.update("UPDATE BOOK SET `TITLE`=:TITLE, FK_AUTHOR_ID=:FK_AUTHOR_ID, FK_GENRE_ID=:FK_GENRE_ID WHERE ID=:ID ", namedParameters);
+        namedParameterJdbcOperations.update("UPDATE BOOK SET `TITLE`=:TITLE, FK_AUTHOR_ID=:FK_AUTHOR_ID, FK_GENRE_ID=:FK_GENRE_ID WHERE ID=:ID", namedParameters);
         return getById(book.getId());
     }
 
