@@ -1,5 +1,6 @@
 package ru.khorunzhev.otus.homework2.dao;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -14,13 +15,10 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
+@RequiredArgsConstructor
 public class BookDaoJdbc implements BookDao {
 
     private final NamedParameterJdbcOperations namedParameterJdbcOperations;
-
-    public BookDaoJdbc(NamedParameterJdbcOperations jdbcOperations) {
-        this.namedParameterJdbcOperations = jdbcOperations;
-    }
 
     @Override
     public int count() {

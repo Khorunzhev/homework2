@@ -12,7 +12,7 @@ public class BookShellController {
     private final BookCRUDService bookCRUDService;
 
     @ShellMethod(value = "Create book", key = {"cb", "CreateBook"})
-    public void createBook() {
+    public void createBook(String title, String genre, String author) {
         bookCRUDService.create();
     }
 
