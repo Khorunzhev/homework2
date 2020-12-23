@@ -16,18 +16,4 @@ public class AuthorServiceImpl implements AuthorService {
         return authorDao.getByFullName(fullName);
     }
 
-    @Override
-    public void create(Author author) {
-
-    }
-
-    @Override
-    public Author update(Author author) {
-        return null;
-    }
-
-    @Override
-    public void delete(String fullName) {
-
-    }
 }
