@@ -1,10 +1,8 @@
 package ru.khorunzhev.otus.homework2.model;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Data
 @Builder
 public class Book {

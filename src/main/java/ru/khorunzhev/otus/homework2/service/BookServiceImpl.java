@@ -10,6 +10,8 @@ import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.model.Book;
 import ru.khorunzhev.otus.homework2.model.Genre;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Log
@@ -47,5 +49,10 @@ public class BookServiceImpl implements BookService {
         Book bookFromDB = bookDao.getByTitle(title);
         bookDao.deleteById(bookFromDB.getId());
         log.info(String.format("Book %s is deleted", bookFromDB));
+    }
+
+    @Override
+    public List<Book> getAll() {
+        return bookDao.getAll();
     }
 }
