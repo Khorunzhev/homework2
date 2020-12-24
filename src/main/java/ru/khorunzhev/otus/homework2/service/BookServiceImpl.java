@@ -2,6 +2,7 @@ package ru.khorunzhev.otus.homework2.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import ru.khorunzhev.otus.homework2.dao.AuthorDao;
 import ru.khorunzhev.otus.homework2.dao.BookDao;
@@ -47,8 +48,13 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(final String title) {
         Book bookFromDB = bookDao.getFullInfoByTitle(title);
-        bookDao.deleteById(bookFromDB.getId());
-        log.info(String.format("Book %s is deleted", bookFromDB));
+        if (bookFromDB != null) {
+            bookDao.deleteById(bookFromDB.getId());
+            log.info(String.format("Book %s is deleted", bookFromDB));
+        } else
+        {
+            log.info(String.format("Book with title %s already deleted", title));
+        }
     }
 
     @Override

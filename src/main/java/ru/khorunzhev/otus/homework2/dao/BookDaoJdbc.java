@@ -1,6 +1,7 @@
 package ru.khorunzhev.otus.homework2.dao;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -51,31 +52,39 @@ public class BookDaoJdbc implements BookDao {
     @Override
     public Book getFullInfoById(long id) {
         Map<String, Object> params = Collections.singletonMap("id", id);
-        return namedParameterJdbcOperations.queryForObject(
-                "SELECT b.ID, b.TITLE, b.AUTHOR_ID, a.FULLNAME, b.GENRE_ID, g.NAME FROM BOOK b  " +
-                        "INNER JOIN AUTHOR a" +
-                        "INNER JOIN GENRE g" +
-                        "WHERE b.ID = :id", params, new BookMapper()
-        );
+        try {
+            return namedParameterJdbcOperations.queryForObject(
+                    "SELECT b.ID, b.TITLE, b.AUTHOR_ID, a.FULLNAME, b.GENRE_ID, g.NAME FROM BOOK b  " +
+                            "INNER JOIN AUTHOR a on b.AUTHOR_ID = a.ID " +
+                            "INNER JOIN GENRE g on b.GENRE_ID = g.ID " +
+                            "WHERE b.ID = :id", params, new BookMapper()
+            );
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
     public Book getFullInfoByTitle(String title) {
         Map<String, Object> params = Collections.singletonMap("title", title);
-        return namedParameterJdbcOperations.queryForObject(
-                "SELECT b.ID, b.TITLE, b.AUTHOR_ID, a.FULLNAME, b.GENRE_ID, g.NAME FROM BOOK b  " +
-                        "INNER JOIN AUTHOR a" +
-                        "INNER JOIN GENRE g" +
+        try {
+            return namedParameterJdbcOperations.queryForObject(
+                    "SELECT b.ID, b.TITLE, b.AUTHOR_ID, a.FULLNAME, b.GENRE_ID, g.NAME FROM BOOK b  " +
+                        "INNER JOIN AUTHOR a on b.AUTHOR_ID = a.ID " +
+                        "INNER JOIN GENRE g on b.GENRE_ID = g.ID " +
                         "WHERE b.TITLE = :title", params, new BookMapper()
-        );
+            );
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
     public List<Book> getAllFullInfo() {
         return namedParameterJdbcOperations.query(
              "SELECT b.ID, b.TITLE, b.AUTHOR_ID, a.FULLNAME, b.GENRE_ID, g.NAME FROM BOOK b  " +
-                "INNER JOIN AUTHOR a" +
-                "INNER JOIN GENRE g", new BookMapper());
+                "INNER JOIN AUTHOR a on b.AUTHOR_ID = a.ID " +
+                "INNER JOIN GENRE g on b.GENRE_ID = g.ID", new BookMapper());
     }
 
     @Override

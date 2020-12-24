@@ -59,7 +59,7 @@ public class BookDaoJdbcTest {
     void shouldDeleteBook() {
         long checkedId = 1;
         bookDao.deleteById(checkedId);
-        assertThatThrownBy(() -> bookDao.getFullInfoById(checkedId)).isInstanceOf(EmptyResultDataAccessException.class);
+        assertThat(bookDao.getFullInfoById(checkedId)).isNull();
     }
 
 }
