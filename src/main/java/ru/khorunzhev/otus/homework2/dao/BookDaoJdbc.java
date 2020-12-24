@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
+import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.model.Book;
 
 import java.sql.ResultSet;
@@ -30,8 +31,8 @@ public class BookDaoJdbc implements BookDao {
 
         SqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("TITLE", book.getTitle())
-                .addValue("AUTHOR_ID", book.getFk_author_id())
-                .addValue("GENRE_ID", book.getFk_genre_id());
+                .addValue("AUTHOR_ID", book.getAuthor().getId())
+                .addValue("GENRE_ID", book.getGenre().getId());
         namedParameterJdbcOperations.update("INSERT INTO BOOK (`TITLE`, AUTHOR_ID, GENRE_ID) values (:TITLE, :AUTHOR_ID, :GENRE_ID)", namedParameters);
     }
 
@@ -40,8 +41,8 @@ public class BookDaoJdbc implements BookDao {
         SqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("ID", book.getId())
                 .addValue("TITLE", book.getTitle())
-                .addValue("AUTHOR_ID", book.getFk_author_id())
-                .addValue("GENRE_ID", book.getFk_genre_id());
+                .addValue("AUTHOR_ID", book.getAuthor().getId())
+                .addValue("GENRE_ID", book.getGenre().getId());
         namedParameterJdbcOperations.update("UPDATE BOOK SET `TITLE`=:TITLE, AUTHOR_ID=:AUTHOR_ID, GENRE_ID=:GENRE_ID WHERE ID=:ID", namedParameters);
         return getById(book.getId());
     }
@@ -50,7 +51,7 @@ public class BookDaoJdbc implements BookDao {
     public Book getById(long id) {
         Map<String, Object> params = Collections.singletonMap("id", id);
         return namedParameterJdbcOperations.queryForObject(
-                "SELECT * FROM BOOK where id = :id", params, new BookMapper()
+                "SELECT TITLE, FK_AUTHOR_ID, FK_GENRE_ID FROM BOOK where ID = :id", params, new BookMapper()
         );
     }
 
@@ -58,7 +59,7 @@ public class BookDaoJdbc implements BookDao {
     public Book getByTitle(String title) {
         Map<String, Object> params = Collections.singletonMap("title", title);
         return namedParameterJdbcOperations.queryForObject(
-                "SELECT * FROM BOOK where TITLE = :title", params, new BookMapper()
+                "SELECT ID, TITLE, FK_AUTHOR_ID, FK_GENRE_ID FROM BOOK where TITLE = :title", params, new BookMapper()
         );
     }
 
@@ -83,7 +84,7 @@ public class BookDaoJdbc implements BookDao {
             long fk_author_id = resultSet.getLong("AUTHOR_ID");
             long fk_genre_id = resultSet.getLong("GENRE_ID");
             String title = resultSet.getString("TITLE");
-            return new Book(id, title, fk_author_id, fk_genre_id);
+            return new Book(id, title, , );
         }
     }
 }

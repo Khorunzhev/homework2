@@ -5,6 +5,6 @@ import ru.khorunzhev.otus.homework2.model.Genre;
 
 public interface GenreService {
 
-    Genre get(String title);
+    Genre getGenre(String title);
 
 }

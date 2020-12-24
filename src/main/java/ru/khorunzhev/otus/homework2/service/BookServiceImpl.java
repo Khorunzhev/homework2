@@ -22,7 +22,7 @@ public class BookServiceImpl implements BookService {
     private final AuthorDao authorDao;
 
     @Override
-    public void create(String title, String authorFullName, String genreName) {
+    public void createBook(String title, String authorFullName, String genreName) {
         Genre genreEntity = genreDao.getByName(genreName);
         Author authorEntity = authorDao.getByFullName(authorFullName);
         Book book = Book.builder()
@@ -36,7 +36,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book update(String curTitle, String newTitle) {
+    public Book updateBook(String curTitle, String newTitle) {
         Book dbBook = bookDao.getByTitle(curTitle);
         dbBook.setTitle(newTitle);
         Book updatedBook = bookDao.update(dbBook);
@@ -45,14 +45,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void delete(final String title) {
+    public void deleteBook(final String title) {
         Book bookFromDB = bookDao.getByTitle(title);
         bookDao.deleteById(bookFromDB.getId());
         log.info(String.format("Book %s is deleted", bookFromDB));
     }
 
     @Override
-    public List<Book> getAll() {
+    public List<Book> getAllBooks() {
         return bookDao.getAll();
     }
 }

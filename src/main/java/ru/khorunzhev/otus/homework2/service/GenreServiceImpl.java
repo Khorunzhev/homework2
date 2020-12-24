@@ -13,7 +13,7 @@ public class GenreServiceImpl implements GenreService {
     private final GenreDao genreDao;
 
     @Override
-    public Genre get(String name) {
+    public Genre getGenre(String name) {
         return genreDao.getByName(name);
     }
 }

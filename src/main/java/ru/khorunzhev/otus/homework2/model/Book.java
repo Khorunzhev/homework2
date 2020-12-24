@@ -9,7 +9,7 @@ public class Book {
 
     private Long id;
     private String title;
-    private Long fk_author_id;
-    private Long fk_genre_id;
+    private Author author;
+    private Genre genre;
 
 }

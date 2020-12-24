@@ -5,6 +5,6 @@ import ru.khorunzhev.otus.homework2.model.Book;
 
 public interface AuthorService {
 
-    Author get(String fullName);
+    Author getAuthor(String fullName);
 
 }

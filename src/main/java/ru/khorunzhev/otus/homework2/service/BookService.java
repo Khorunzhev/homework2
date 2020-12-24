@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface BookService {
 
-    void create(String title, String authorFullName, String genreName);
-    Book update(String curTitle, String newTitle);
-    void delete(String title);
-    List<Book> getAll();
+    void createBook(String title, String authorFullName, String genreName);
+    Book updateBook(String curTitle, String newTitle);
+    void deleteBook(String title);
+    List<Book> getAllBooks();
 }

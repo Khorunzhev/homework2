@@ -12,7 +12,7 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorDao authorDao;
 
     @Override
-    public Author get(String fullName) {
+    public Author getAuthor(String fullName) {
         return authorDao.getByFullName(fullName);
     }
 
