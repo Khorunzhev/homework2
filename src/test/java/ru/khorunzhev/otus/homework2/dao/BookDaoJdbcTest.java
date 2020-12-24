@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.EmptyResultDataAccessException;
+import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.model.Book;
+import ru.khorunzhev.otus.homework2.model.Genre;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -24,17 +26,19 @@ public class BookDaoJdbcTest {
         Book expectedBook = Book.builder()
                 .id(10L)
                 .title("INSERT")
-                .fk_author_id(1L)
-                .fk_genre_id(1L)
+                .author(new Author(1L, "Тест Автор1"))
+                .genre(new Genre(1L, "Тест жанр1"))
                 .build();
         bookDao.insert(expectedBook);
 
         System.out.println(String.format("Book %s inserted", expectedBook));
 
-        Book actualBook = bookDao.getByTitle("INSERT");
+        Book actualBook = bookDao.getFullInfoByTitle("INSERT");
 
         assertThat(expectedBook)
-                .isEqualToIgnoringGivenFields(actualBook,"id");
+                .usingRecursiveComparison()
+                .ignoringFields("id")
+                .isEqualTo(actualBook);
     }
 
     @Test
@@ -42,11 +46,11 @@ public class BookDaoJdbcTest {
         Book expectedBook = Book.builder()
                 .id(1L)
                 .title("Тест1")
-                .fk_author_id(1L)
-                .fk_genre_id(1L)
+                .author(new Author(1L, "Тест Автор1"))
+                .genre(new Genre(1L, "Тест жанр1"))
                 .build();
 
-        Book actualBook = bookDao.getById(1);
+        Book actualBook = bookDao.getFullInfoById(1);
 
         assertThat(actualBook).isEqualTo(expectedBook);
     }
@@ -55,7 +59,7 @@ public class BookDaoJdbcTest {
     void shouldDeleteBook() {
         long checkedId = 1;
         bookDao.deleteById(checkedId);
-        assertThatThrownBy(() -> bookDao.getById(checkedId)).isInstanceOf(EmptyResultDataAccessException.class);
+        assertThatThrownBy(() -> bookDao.getFullInfoById(checkedId)).isInstanceOf(EmptyResultDataAccessException.class);
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.model.Book;
+import ru.khorunzhev.otus.homework2.model.Genre;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,28 +45,37 @@ public class BookDaoJdbc implements BookDao {
                 .addValue("AUTHOR_ID", book.getAuthor().getId())
                 .addValue("GENRE_ID", book.getGenre().getId());
         namedParameterJdbcOperations.update("UPDATE BOOK SET `TITLE`=:TITLE, AUTHOR_ID=:AUTHOR_ID, GENRE_ID=:GENRE_ID WHERE ID=:ID", namedParameters);
-        return getById(book.getId());
+        return getFullInfoById(book.getId());
     }
 
     @Override
-    public Book getById(long id) {
+    public Book getFullInfoById(long id) {
         Map<String, Object> params = Collections.singletonMap("id", id);
         return namedParameterJdbcOperations.queryForObject(
-                "SELECT TITLE, FK_AUTHOR_ID, FK_GENRE_ID FROM BOOK where ID = :id", params, new BookMapper()
+                "SELECT b.ID, b.TITLE, b.AUTHOR_ID, a.FULLNAME, b.GENRE_ID, g.NAME FROM BOOK b  " +
+                        "INNER JOIN AUTHOR a" +
+                        "INNER JOIN GENRE g" +
+                        "WHERE b.ID = :id", params, new BookMapper()
         );
     }
 
     @Override
-    public Book getByTitle(String title) {
+    public Book getFullInfoByTitle(String title) {
         Map<String, Object> params = Collections.singletonMap("title", title);
         return namedParameterJdbcOperations.queryForObject(
-                "SELECT ID, TITLE, FK_AUTHOR_ID, FK_GENRE_ID FROM BOOK where TITLE = :title", params, new BookMapper()
+                "SELECT b.ID, b.TITLE, b.AUTHOR_ID, a.FULLNAME, b.GENRE_ID, g.NAME FROM BOOK b  " +
+                        "INNER JOIN AUTHOR a" +
+                        "INNER JOIN GENRE g" +
+                        "WHERE b.TITLE = :title", params, new BookMapper()
         );
     }
 
     @Override
-    public List<Book> getAll() {
-        return namedParameterJdbcOperations.query("SELECT * FROM BOOK", new BookMapper());
+    public List<Book> getAllFullInfo() {
+        return namedParameterJdbcOperations.query(
+             "SELECT b.ID, b.TITLE, b.AUTHOR_ID, a.FULLNAME, b.GENRE_ID, g.NAME FROM BOOK b  " +
+                "INNER JOIN AUTHOR a" +
+                "INNER JOIN GENRE g", new BookMapper());
     }
 
     @Override
@@ -77,14 +87,16 @@ public class BookDaoJdbc implements BookDao {
     }
 
     private static class BookMapper implements RowMapper<Book> {
-
         @Override
         public Book mapRow(ResultSet resultSet, int i) throws SQLException {
             long id = resultSet.getLong("ID");
-            long fk_author_id = resultSet.getLong("AUTHOR_ID");
-            long fk_genre_id = resultSet.getLong("GENRE_ID");
             String title = resultSet.getString("TITLE");
-            return new Book(id, title, , );
+            return Book.builder()
+                    .id(id)
+                    .title(title)
+                    .author(new Author(resultSet.getLong("AUTHOR_ID"), resultSet.getString("FULLNAME")))
+                    .genre(new Genre(resultSet.getLong("GENRE_ID"), resultSet.getString("NAME")))
+                    .build();
         }
     }
 }
