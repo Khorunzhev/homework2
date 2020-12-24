@@ -18,13 +18,13 @@ import java.util.List;
 public class BookServiceImpl implements BookService {
 
     private final BookDao bookDao;
-    private final GenreDao genreDao;
-    private final AuthorDao authorDao;
+    private final GenreService genreService;
+    private final AuthorService authorService;
 
     @Override
     public void createBook(String title, String authorFullName, String genreName) {
-        Genre genreEntity = genreDao.getByName(genreName);
-        Author authorEntity = authorDao.getByFullName(authorFullName);
+        Genre genreEntity = genreService.getGenre(genreName);
+        Author authorEntity = authorService.getAuthor(authorFullName);
         Book book = Book.builder()
                 .title(title)
                 .author(authorEntity)
