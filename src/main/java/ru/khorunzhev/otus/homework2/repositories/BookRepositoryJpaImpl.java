@@ -1,9 +1,11 @@
 package ru.khorunzhev.otus.homework2.repositories;
 
+import org.springframework.stereotype.Repository;
 import ru.khorunzhev.otus.homework2.model.Book;
 
 import java.util.List;
 
+@Repository
 public class BookRepositoryJpaImpl implements BookRepository {
 
     @Override
