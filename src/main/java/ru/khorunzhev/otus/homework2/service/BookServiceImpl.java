@@ -2,11 +2,8 @@ package ru.khorunzhev.otus.homework2.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import ru.khorunzhev.otus.homework2.dao.AuthorDao;
-import ru.khorunzhev.otus.homework2.dao.BookDao;
-import ru.khorunzhev.otus.homework2.dao.GenreDao;
+import ru.khorunzhev.otus.homework2.repositories.BookRepository;
 import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.model.Book;
 import ru.khorunzhev.otus.homework2.model.Genre;
@@ -18,7 +15,7 @@ import java.util.List;
 @Log
 public class BookServiceImpl implements BookService {
 
-    private final BookDao bookDao;
+    private final BookRepository bookRepository;
     private final GenreService genreService;
     private final AuthorService authorService;
 
@@ -32,24 +29,24 @@ public class BookServiceImpl implements BookService {
                 .genre(genreEntity)
                 .build();
 
-        bookDao.insert(book);
+        bookRepository.insert(book);
         log.info(String.format("Book %s is created", book));
     }
 
     @Override
     public Book updateBook(String curTitle, String newTitle) {
-        Book dbBook = bookDao.getFullInfoByTitle(curTitle);
+        Book dbBook = bookRepository.getFullInfoByTitle(curTitle);
         dbBook.setTitle(newTitle);
-        Book updatedBook = bookDao.update(dbBook);
+        Book updatedBook = bookRepository.update(dbBook);
         log.info(String.format("Book %s is updated", updatedBook));
         return updatedBook;
     }
 
     @Override
     public void deleteBook(final String title) {
-        Book bookFromDB = bookDao.getFullInfoByTitle(title);
+        Book bookFromDB = bookRepository.getFullInfoByTitle(title);
         if (bookFromDB != null) {
-            bookDao.deleteById(bookFromDB.getId());
+            bookRepository.deleteById(bookFromDB.getId());
             log.info(String.format("Book %s is deleted", bookFromDB));
         } else
         {
@@ -59,6 +56,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getAllBooks() {
-        return bookDao.getAllFullInfo();
+        return bookRepository.getAllFullInfo();
     }
 }

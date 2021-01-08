@@ -1,12 +1,22 @@
 package ru.khorunzhev.otus.homework2.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import javax.persistence.*;
 
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Entity
+@Table(name = "AUTHOR")
 public class Author {
 
-    private final Long id;
-    private final String fullName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = "FULLNAME", nullable = false, unique = true)
+    private String fullName;
 }

@@ -1,10 +1,10 @@
-package ru.khorunzhev.otus.homework2.dao;
+package ru.khorunzhev.otus.homework2.repositories;
 
 import ru.khorunzhev.otus.homework2.model.Book;
 
 import java.util.List;
 
-public interface BookDao {
+public interface BookRepository {
 
     int count();
 
