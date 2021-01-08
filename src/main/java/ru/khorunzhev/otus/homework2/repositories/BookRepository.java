@@ -8,9 +8,9 @@ public interface BookRepository {
 
     int count();
 
-    void insert(Book book);
+    Book insert(Book book);
 
-    Book update(Book book);
+    void updateTitleById(long id, String newTitle);
 
     Book getFullInfoById(long id);
 
