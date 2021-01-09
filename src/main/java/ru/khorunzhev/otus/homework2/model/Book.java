@@ -10,6 +10,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @Entity
+@ToString(exclude = "comment")
 @Builder
 @Table(name = "BOOK")
 public class Book {
