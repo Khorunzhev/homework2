@@ -3,6 +3,7 @@ package ru.khorunzhev.otus.homework2.service;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.khorunzhev.otus.homework2.model.Book;
 import ru.khorunzhev.otus.homework2.model.Comment;
 import ru.khorunzhev.otus.homework2.repositories.BookRepository;
@@ -18,6 +19,7 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
     private final BookService bookService;
 
+    @Transactional
     @Override
     public void createComment(String text, String bookTitle) {
         Book book = bookService.getBookByTitle(bookTitle);
@@ -27,6 +29,7 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.insert(comment);
     }
 
+    @Transactional
     @Override
     public void updateComment(long id, String newText) {
         if (commentRepository.getFullInfoById(1).isPresent()) {
@@ -38,15 +41,18 @@ public class CommentServiceImpl implements CommentService {
         }
     }
 
+    @Transactional
     @Override
     public void deleteComment(long id) {
-        if (commentRepository.getFullInfoById(1).isPresent()) {
-            commentRepository.delete(commentRepository.getFullInfoById(1).get());
+        if (commentRepository.getFullInfoById(id).isPresent()) {
+            Comment dbComment = commentRepository.getFullInfoById(id).get();
+            commentRepository.delete(dbComment);
         } else {
             log.info("Comment is not exist");
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Comment> getAllComments() {
         return commentRepository.getAllFullInfo();

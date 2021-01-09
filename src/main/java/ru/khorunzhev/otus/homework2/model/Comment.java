@@ -2,6 +2,8 @@ package ru.khorunzhev.otus.homework2.model;
 
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -9,6 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Data
+@ToString(exclude = "book")
 @Entity
 @Table(name = "COMMENT")
 public class Comment {
@@ -19,7 +22,7 @@ public class Comment {
     @Column(name = "TEXT", nullable = false)
     private String text;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Book.class, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "BOOK_ID")
     Book book;
 

@@ -11,6 +11,7 @@ import java.util.Set;
 @Data
 @Entity
 @ToString(exclude = "comment")
+@EqualsAndHashCode(exclude = "comment")
 @Builder
 @Table(name = "BOOK")
 public class Book {
