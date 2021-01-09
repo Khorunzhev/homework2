@@ -8,6 +8,8 @@ import ru.khorunzhev.otus.homework2.model.Comment;
 import ru.khorunzhev.otus.homework2.repositories.BookRepository;
 import ru.khorunzhev.otus.homework2.repositories.CommentRepository;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 @Log
@@ -43,5 +45,10 @@ public class CommentServiceImpl implements CommentService {
         } else {
             log.info("Comment is not exist");
         }
+    }
+
+    @Override
+    public List<Comment> getAllComments() {
+        return commentRepository.getAllFullInfo();
     }
 }
