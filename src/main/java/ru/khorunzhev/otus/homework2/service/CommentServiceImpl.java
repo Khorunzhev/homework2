@@ -38,6 +38,10 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void deleteComment(long id) {
-        
+        if (commentRepository.getFullInfoById(1).isPresent()) {
+            commentRepository.delete(commentRepository.getFullInfoById(1).get());
+        } else {
+            log.info("Comment is not exist");
+        }
     }
 }
