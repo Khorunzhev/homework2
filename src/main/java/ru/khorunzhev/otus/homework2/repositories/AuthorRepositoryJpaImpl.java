@@ -21,6 +21,19 @@ public class AuthorRepositoryJpaImpl implements AuthorRepository {
                         "where a.fullName = :fullName",
                 Author.class);
         query.setParameter("fullName", fullName);
-        return query.getSingleResult();
+        return query.getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
+    public Author insert(Author author) {
+        if (author.getId() <= 0) {
+            em.persist(author);
+            return author;
+        } else {
+            return em.merge(author);
+        }
     }
 }

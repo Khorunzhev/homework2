@@ -1,6 +1,6 @@
-insert into BOOK (`TITLE`) values ('BOOK NAME1');
-insert into BOOK (`TITLE`) values ('BOOK NAME2');
-insert into BOOK (`TITLE`) values ('BOOK NAME3');
+insert into BOOK (`TITLE`) values ('NAME1');
+insert into BOOK (`TITLE`) values ('NAME2');
+insert into BOOK (`TITLE`) values ('NAME3');
 
 insert into AUTHOR (`FULLNAME`, BOOK_ID) values ('Иванов', 1);
 insert into AUTHOR (`FULLNAME`, BOOK_ID) values ('Сидоров', 2);

@@ -20,6 +20,19 @@ public class GenreRepositoryJpaImpl implements GenreRepository {
                         "where g.name = :name",
                 Genre.class);
         query.setParameter("name", name);
-        return query.getSingleResult();
+        return query.getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
+    public Genre insert(Genre name) {
+        if (name.getId() <= 0) {
+            em.persist(name);
+            return name;
+        } else {
+            return em.merge(name);
+        }
     }
 }

@@ -72,4 +72,9 @@ public class BookRepositoryJpaImpl implements BookRepository {
         query.setParameter("id", id);
         query.executeUpdate();
     }
+
+    @Override
+    public void delete(Book book) {
+        em.remove(book);
+    }
 }

@@ -20,4 +20,6 @@ public interface BookRepository {
 
     void deleteById(long id);
 
+    void delete(Book book);
+
 }
