@@ -60,6 +60,11 @@ public class BookServiceImpl implements BookService {
         }
     }
 
+    @Override
+    public Book getBookByTitle(String title) {
+        return bookRepository.getFullInfoByTitle(title);
+    }
+
     @Transactional(readOnly = true)
     @Override
     public List<Book> getAllBooks() {

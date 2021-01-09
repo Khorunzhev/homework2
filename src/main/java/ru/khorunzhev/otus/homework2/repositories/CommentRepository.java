@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface CommentRepository {
 
 
-    Comment insert(Comment book);
+    Comment insert(Comment comment);
 
     void update(Comment comment);
 
@@ -16,6 +16,6 @@ public interface CommentRepository {
 
     List<Comment> getAllFullInfo();
 
-    void delete(Comment book);
+    void delete(Comment comment);
 
 }

@@ -22,4 +22,8 @@ public class Comment {
     @Column(name = "TEXT", nullable = false)
     private String text;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "BOOK_ID")
+    Book book;
+
 }
