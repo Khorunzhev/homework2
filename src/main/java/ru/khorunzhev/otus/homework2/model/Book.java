@@ -29,4 +29,8 @@ public class Book {
     @JoinColumn(name = "BOOK_ID")
     private Set<Genre> genre;
 
+    @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "BOOK_ID")
+    private Set<Comment> comment;
+
 }
