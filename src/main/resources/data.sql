@@ -1,10 +1,11 @@
-insert into AUTHOR (`FULLNAME`) values ('Иванов');
-insert into AUTHOR (`FULLNAME`) values ('Сидоров');
+insert into BOOK (`TITLE`) values ('BOOK NAME1');
+insert into BOOK (`TITLE`) values ('BOOK NAME2');
+insert into BOOK (`TITLE`) values ('BOOK NAME3');
 
-insert into GENRE (`NAME`) values ('Фантастика');
-insert into GENRE (`NAME`) values ('Детектив');
+insert into AUTHOR (`FULLNAME`, BOOK_ID) values ('Иванов', 1);
+insert into AUTHOR (`FULLNAME`, BOOK_ID) values ('Сидоров', 2);
+insert into AUTHOR (`FULLNAME`, BOOK_ID) values ('Иванов', 3);
 
-
-insert into BOOK (`TITLE`, AUTHOR_ID, GENRE_ID) values ('BOOK NAME1', 1, 1);
-insert into BOOK (`TITLE`, AUTHOR_ID, GENRE_ID) values ('BOOK NAME2', 2, 2);
-insert into BOOK (`TITLE`, AUTHOR_ID, GENRE_ID) values ('BOOK NAME3', 1, 2);
+insert into GENRE (`NAME`, BOOK_ID) values ('Фантастика', 1);
+insert into GENRE (`NAME`, BOOK_ID) values ('Детектив', 2);
+insert into GENRE (`NAME`, BOOK_ID) values ('Детектив', 3);

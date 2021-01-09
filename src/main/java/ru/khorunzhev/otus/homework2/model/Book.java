@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,11 +22,11 @@ public class Book {
     private String title;
 
     @OneToMany(targetEntity = Author.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "AUTHOR_ID")
-    private List<Author> author;
+    @JoinColumn(name = "BOOK_ID")
+    private Set<Author> author;
 
     @OneToMany(targetEntity = Genre.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "GENRE_ID")
-    private List<Genre> genre;
+    @JoinColumn(name = "BOOK_ID")
+    private Set<Genre> genre;
 
 }

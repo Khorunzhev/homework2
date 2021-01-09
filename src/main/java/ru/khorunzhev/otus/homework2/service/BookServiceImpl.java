@@ -10,6 +10,7 @@ import ru.khorunzhev.otus.homework2.model.Genre;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -26,8 +27,8 @@ public class BookServiceImpl implements BookService {
         Author authorEntity = authorService.getAuthor(authorFullName);
         Book book = Book.builder()
                 .title(title)
-                .author(Collections.singletonList(authorEntity))
-                .genre(Collections.singletonList(genreEntity))
+                .author(Set.of(authorEntity))
+                .genre(Set.of(genreEntity))
                 .build();
 
         bookRepository.insert(book);
