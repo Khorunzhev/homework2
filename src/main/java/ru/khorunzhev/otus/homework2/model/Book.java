@@ -1,6 +1,9 @@
 package ru.khorunzhev.otus.homework2.model;
 
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,14 +26,18 @@ public class Book {
     @Column(name = "TITLE", nullable = false, unique = true)
     private String title;
 
+    @Fetch(FetchMode.SUBSELECT)
     @OneToMany(targetEntity = Author.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "BOOK_ID")
     private Set<Author> author;
 
+    @Fetch(FetchMode.SUBSELECT)
     @OneToMany(targetEntity = Genre.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "BOOK_ID")
     private Set<Genre> genre;
 
+    @Fetch(FetchMode.SELECT)
+    @BatchSize(size = 3)
     @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "BOOK_ID")
     private Set<Comment> comment;
