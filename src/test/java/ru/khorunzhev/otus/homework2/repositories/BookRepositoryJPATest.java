@@ -29,10 +29,10 @@ public class BookRepositoryJPATest {
 
     @Test
     void checkGetByIdMethod() {
-        val optionalActualStudent = bookRepositoryJpa.getFullInfoById(BOOK_ID);
-        val expectedStudent = em.find(Book.class, BOOK_ID);
-        assertThat(optionalActualStudent)
-                .usingRecursiveComparison().isEqualTo(expectedStudent);
+        val optionalActualBook = bookRepositoryJpa.getFullInfoById(BOOK_ID);
+        val expectedBook = em.find(Book.class, BOOK_ID);
+        assertThat(optionalActualBook)
+                .usingRecursiveComparison().isEqualTo(expectedBook);
     }
 
 }

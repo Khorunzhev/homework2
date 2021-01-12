@@ -28,8 +28,8 @@ public class BookServiceImpl implements BookService {
         Author authorEntity = authorService.createAuthor(authorFullName);
         Book book = Book.builder()
                 .title(title)
-                .author(Set.of(authorEntity))
-                .genre(Set.of(genreEntity))
+                .author(authorEntity)
+                .genre(genreEntity)
                 .build();
 
         bookRepository.insert(book);

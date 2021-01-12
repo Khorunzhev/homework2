@@ -26,15 +26,15 @@ public class Book {
     @Column(name = "TITLE", nullable = false, unique = true)
     private String title;
 
-    @Fetch(FetchMode.SUBSELECT)
-    @OneToMany(targetEntity = Author.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "BOOK_ID")
-    private Set<Author> author;
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(targetEntity = Author.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "AUTHOR_ID")
+    private Author author;
 
-    @Fetch(FetchMode.SUBSELECT)
-    @OneToMany(targetEntity = Genre.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(targetEntity = Genre.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "BOOK_ID")
-    private Set<Genre> genre;
+    private Genre genre;
 
     @Fetch(FetchMode.SELECT)
     @BatchSize(size = 3)
