@@ -38,8 +38,7 @@ public class Book {
 
     @Fetch(FetchMode.SELECT)
     @BatchSize(size = 3)
-    @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "BOOK_ID")
+    @OneToMany(targetEntity = Comment.class, mappedBy = "book", fetch = FetchType.LAZY)
     private Set<Comment> comment;
 
 }

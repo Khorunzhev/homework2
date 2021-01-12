@@ -9,7 +9,6 @@ import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.model.Book;
 import ru.khorunzhev.otus.homework2.model.Genre;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -39,12 +38,11 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public Book updateBook(String curTitle, String newTitle) {
+    public void updateBook(String curTitle, String newTitle) {
         Book dbBook = bookRepository.getFullInfoByTitle(curTitle);
-        bookRepository.updateTitleById(dbBook.getId(), newTitle);
-        Book updatedBook = bookRepository.getFullInfoById(dbBook.getId());
-        log.info(String.format("Book %s is updated", updatedBook));
-        return updatedBook;
+        dbBook.setTitle(newTitle);
+        bookRepository.update(dbBook);
+        log.info(String.format("Book %s is updated", dbBook));
     }
 
     @Transactional

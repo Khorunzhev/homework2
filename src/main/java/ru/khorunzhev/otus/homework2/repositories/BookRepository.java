@@ -3,6 +3,7 @@ package ru.khorunzhev.otus.homework2.repositories;
 import ru.khorunzhev.otus.homework2.model.Book;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookRepository {
 
@@ -10,9 +11,9 @@ public interface BookRepository {
 
     Book insert(Book book);
 
-    void updateTitleById(long id, String newTitle);
+    void update(Book book);
 
-    Book getFullInfoById(long id);
+    Optional<Book> getFullInfoById(long id);
 
     Book getFullInfoByTitle(String title);
 

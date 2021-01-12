@@ -32,13 +32,14 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     @Override
     public void updateComment(long id, String newText) {
-        if (commentRepository.getFullInfoById(1).isPresent()) {
-            Comment dbComment = commentRepository.getFullInfoById(1).get();
-            dbComment.setText(newText);
-            commentRepository.update(dbComment);
-        } else {
-            log.info("Comment is not exist");
-        }
+        commentRepository.getFullInfoById(id)
+                .ifPresentOrElse(
+                        (Comment comment) ->
+                        {
+                            comment.setText(newText);
+                            commentRepository.update(comment);
+                        },
+                        () -> log.info("Comment is not exist"));
     }
 
     @Transactional
