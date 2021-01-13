@@ -27,13 +27,13 @@ public class Book {
     private String title;
 
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(targetEntity = Author.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Author.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(name = "AUTHOR_ID")
     private Author author;
 
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(targetEntity = Genre.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "BOOK_ID")
+    @ManyToOne(targetEntity = Genre.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "GENRE_ID")
     private Genre genre;
 
     @Fetch(FetchMode.SELECT)
