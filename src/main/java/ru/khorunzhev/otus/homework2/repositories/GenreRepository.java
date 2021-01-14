@@ -1,12 +1,11 @@
 package ru.khorunzhev.otus.homework2.repositories;
 
+import org.springframework.data.repository.CrudRepository;
 import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.model.Genre;
 
-public interface GenreRepository {
+public interface GenreRepository extends CrudRepository<Genre, Long> {
 
-    Genre getByName(String name);
-
-    Genre insert(Genre name);
+    Genre findByName(String name);
 
 }

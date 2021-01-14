@@ -1,26 +1,14 @@
 package ru.khorunzhev.otus.homework2.repositories;
 
+import org.springframework.data.repository.CrudRepository;
+import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.model.Book;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface BookRepository {
+public interface BookRepository extends CrudRepository<Book, Long> {
 
-    int count();
-
-    Book insert(Book book);
-
-    void update(Book book);
-
-    Optional<Book> getFullInfoById(long id);
-
-    Book getFullInfoByTitle(String title);
-
-    List<Book> getAllFullInfo();
-
-    void deleteById(long id);
-
-    void delete(Book book);
+    Book findBooksByTitle(String title);
 
 }

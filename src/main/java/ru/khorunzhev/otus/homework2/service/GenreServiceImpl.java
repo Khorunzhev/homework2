@@ -15,16 +15,16 @@ public class GenreServiceImpl implements GenreService {
     @Transactional(readOnly = true)
     @Override
     public Genre getGenre(String name) {
-        return genreRepository.getByName(name);
+        return genreRepository.findByName(name);
     }
 
     @Transactional
     @Override
     public Genre createGenre(String name) {
-        Genre dbGenre = genreRepository.getByName(name);
+        Genre dbGenre = genreRepository.findByName(name);
         if (dbGenre == null) {
             Genre newGenre = Genre.builder().name(name).build();
-            return genreRepository.insert(newGenre);
+            return genreRepository.save(newGenre);
         } else {
             return dbGenre;
         }

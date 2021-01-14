@@ -16,15 +16,15 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional(readOnly = true)
     @Override
     public Author getAuthor(String fullName) {
-        return authorRepository.getByFullName(fullName);
+        return authorRepository.findByFullName(fullName);
     }
 
     @Override
     public Author createAuthor(String fullName) {
-        Author dbAuthor = authorRepository.getByFullName(fullName);
+        Author dbAuthor = authorRepository.findByFullName(fullName);
         if (dbAuthor == null) {
             Author newAuthor = Author.builder().fullName(fullName).build();
-            return authorRepository.insert(newAuthor);
+            return authorRepository.save(newAuthor);
         } else {
             return dbAuthor;
         }

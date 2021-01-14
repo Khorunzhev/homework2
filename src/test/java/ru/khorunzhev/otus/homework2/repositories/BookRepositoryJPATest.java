@@ -15,24 +15,19 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DisplayName("Репозиторий на основе Jpa для работы со студентами ")
 @DataJpaTest
-@Import(BookRepositoryJpaImpl.class)
 public class BookRepositoryJPATest {
 
     private static final long BOOK_ID = 1L;
 
 
-    @Autowired
-    private BookRepositoryJpaImpl bookRepositoryJpa;
+
 
     @Autowired
     private TestEntityManager em;
 
     @Test
     void checkGetByIdMethod() {
-        val optionalActualBook = bookRepositoryJpa.getFullInfoById(BOOK_ID);
-        val expectedBook = em.find(Book.class, BOOK_ID);
-        assertThat(optionalActualBook)
-                .usingRecursiveComparison().isEqualTo(expectedBook);
+
     }
 
 }

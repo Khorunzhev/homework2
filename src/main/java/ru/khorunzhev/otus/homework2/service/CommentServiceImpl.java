@@ -6,10 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.khorunzhev.otus.homework2.model.Book;
 import ru.khorunzhev.otus.homework2.model.Comment;
-import ru.khorunzhev.otus.homework2.repositories.BookRepository;
 import ru.khorunzhev.otus.homework2.repositories.CommentRepository;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -26,18 +23,18 @@ public class CommentServiceImpl implements CommentService {
 
         Comment comment = Comment.builder().text(text).book(book).build();
 
-        commentRepository.insert(comment);
+        commentRepository.save(comment);
     }
 
     @Transactional
     @Override
     public void updateComment(long id, String newText) {
-        commentRepository.getFullInfoById(id)
+        commentRepository.findById(id)
                 .ifPresentOrElse(
                         (Comment comment) ->
                         {
                             comment.setText(newText);
-                            commentRepository.update(comment);
+                            commentRepository.save(comment);
                         },
                         () -> log.info("Comment is not exist"));
     }
@@ -45,8 +42,8 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     @Override
     public void deleteComment(long id) {
-        if (commentRepository.getFullInfoById(id).isPresent()) {
-            Comment dbComment = commentRepository.getFullInfoById(id).get();
+        if (commentRepository.findById(id).isPresent()) {
+            Comment dbComment = commentRepository.findById(id).get();
             commentRepository.delete(dbComment);
         } else {
             log.info("Comment is not exist");
@@ -55,7 +52,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Comment> getAllComments() {
-        return commentRepository.getAllFullInfo();
+    public Iterable<Comment> getAllComments() {
+        return commentRepository.findAll();
     }
 }

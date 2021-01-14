@@ -33,7 +33,7 @@ public class CommentShellController {
     }
 
     @ShellMethod(value = "Get all comment", key = {"allc", "GetAllComments"})
-    public List<Comment> getAllComments() {
+    public Iterable<Comment> getAllComments() {
         return commentService.getAllComments();
     }
 }

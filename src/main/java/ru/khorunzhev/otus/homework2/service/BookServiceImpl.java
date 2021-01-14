@@ -9,9 +9,6 @@ import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.model.Book;
 import ru.khorunzhev.otus.homework2.model.Genre;
 
-import java.util.List;
-import java.util.Set;
-
 @Service
 @RequiredArgsConstructor
 @Log
@@ -32,23 +29,23 @@ public class BookServiceImpl implements BookService {
                 .genre(genreEntity)
                 .build();
 
-        bookRepository.insert(book);
+        bookRepository.save(book);
         log.info(String.format("Book %s is created", book));
     }
 
     @Transactional
     @Override
     public void updateBook(String curTitle, String newTitle) {
-        Book dbBook = bookRepository.getFullInfoByTitle(curTitle);
+        Book dbBook = bookRepository.findBooksByTitle(curTitle);
         dbBook.setTitle(newTitle);
-        bookRepository.update(dbBook);
+        bookRepository.save(dbBook);
         log.info(String.format("Book %s is updated", dbBook));
     }
 
     @Transactional
     @Override
     public void deleteBook(final String title) {
-        Book bookFromDB = bookRepository.getFullInfoByTitle(title);
+        Book bookFromDB = bookRepository.findBooksByTitle(title);
         if (bookFromDB != null) {
             bookRepository.delete(bookFromDB);
             log.info(String.format("Book %s is deleted", bookFromDB));
@@ -61,12 +58,12 @@ public class BookServiceImpl implements BookService {
     @Transactional(readOnly = true)
     @Override
     public Book getBookByTitle(String title) {
-        return bookRepository.getFullInfoByTitle(title);
+        return bookRepository.findBooksByTitle(title);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Book> getAllBooks() {
-        return bookRepository.getAllFullInfo();
+    public Iterable<Book> getAllBooks() {
+        return bookRepository.findAll();
     }
 }
