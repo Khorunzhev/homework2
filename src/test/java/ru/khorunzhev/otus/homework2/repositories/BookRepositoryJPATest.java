@@ -35,4 +35,11 @@ public class BookRepositoryJPATest {
                 .usingRecursiveComparison().isEqualTo(expectedBook);
     }
 
+    @Test
+    void checkCount() {
+        long expectedCount = bookRepositoryJpa.count();
+        long actualCount = bookRepositoryJpa.getAllFullInfo().size();
+        assertThat(actualCount).isEqualTo(expectedCount);
+    }
+
 }

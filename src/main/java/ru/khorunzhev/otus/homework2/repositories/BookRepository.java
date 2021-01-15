@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface BookRepository {
 
-    int count();
+    long count();
 
     Book insert(Book book);
 
