@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface BookRepository extends CrudRepository<Book, Long> {
 
-    Book findBooksByTitle(String title);
+    Book findBookByTitle(String title);
 
 }

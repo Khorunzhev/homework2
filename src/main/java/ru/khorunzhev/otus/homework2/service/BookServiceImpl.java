@@ -36,7 +36,7 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public void updateBook(String curTitle, String newTitle) {
-        Book dbBook = bookRepository.findBooksByTitle(curTitle);
+        Book dbBook = bookRepository.findBookByTitle(curTitle);
         dbBook.setTitle(newTitle);
         bookRepository.save(dbBook);
         log.info(String.format("Book %s is updated", dbBook));
@@ -45,7 +45,7 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public void deleteBook(final String title) {
-        Book bookFromDB = bookRepository.findBooksByTitle(title);
+        Book bookFromDB = bookRepository.findBookByTitle(title);
         if (bookFromDB != null) {
             bookRepository.delete(bookFromDB);
             log.info(String.format("Book %s is deleted", bookFromDB));
@@ -58,7 +58,7 @@ public class BookServiceImpl implements BookService {
     @Transactional(readOnly = true)
     @Override
     public Book getBookByTitle(String title) {
-        return bookRepository.findBooksByTitle(title);
+        return bookRepository.findBookByTitle(title);
     }
 
     @Transactional(readOnly = true)
