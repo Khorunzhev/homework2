@@ -19,6 +19,7 @@ public class AuthorServiceImpl implements AuthorService {
         return authorRepository.getByFullName(fullName);
     }
 
+    @Transactional
     @Override
     public Author createAuthor(String fullName) {
         Author dbAuthor = authorRepository.getByFullName(fullName);

@@ -13,7 +13,7 @@ import ru.khorunzhev.otus.homework2.model.Book;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@DisplayName("Репозиторий на основе Jpa для работы со студентами ")
+@DisplayName("Репозиторий на основе Jpa для работы с книгами ")
 @DataJpaTest
 @Import(BookRepositoryJpaImpl.class)
 public class BookRepositoryJPATest {
@@ -31,7 +31,7 @@ public class BookRepositoryJPATest {
     void checkGetByIdMethod() {
         val optionalActualBook = bookRepositoryJpa.getFullInfoById(BOOK_ID);
         val expectedBook = em.find(Book.class, BOOK_ID);
-        assertThat(optionalActualBook)
+        assertThat(optionalActualBook.get())
                 .usingRecursiveComparison().isEqualTo(expectedBook);
     }
 

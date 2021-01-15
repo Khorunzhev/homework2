@@ -24,6 +24,6 @@ public class Comment {
 
     @ManyToOne(targetEntity = Book.class, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "BOOK_ID")
-    Book book;
+    private Book book;
 
 }

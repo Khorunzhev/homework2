@@ -45,12 +45,9 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     @Override
     public void deleteComment(long id) {
-        if (commentRepository.getFullInfoById(id).isPresent()) {
-            Comment dbComment = commentRepository.getFullInfoById(id).get();
-            commentRepository.delete(dbComment);
-        } else {
-            log.info("Comment is not exist");
-        }
+        commentRepository.getFullInfoById(id).ifPresentOrElse(
+                commentRepository::delete,
+                () -> log.info("Comment is not exist"));
     }
 
     @Transactional(readOnly = true)
