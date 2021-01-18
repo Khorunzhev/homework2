@@ -1,10 +1,9 @@
 package ru.khorunzhev.otus.homework2.repositories;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import ru.khorunzhev.otus.homework2.model.Author;
-import ru.khorunzhev.otus.homework2.model.Book;
 
-public interface AuthorRepository extends CrudRepository<Author, Long> {
+public interface AuthorRepository extends JpaRepository<Author, Long> {
 
     Author findByFullName(String fullName);
     

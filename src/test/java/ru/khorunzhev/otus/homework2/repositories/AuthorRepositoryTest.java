@@ -21,7 +21,7 @@ public class AuthorRepositoryTest {
     private TestEntityManager em;
 
     @Test
-    void checkFindBookMethod() {
+    void checkAuthorFindMethod() {
         Author expectedAuthor = Author.builder().fullName("FIO").build();
         em.persist(expectedAuthor);
 
