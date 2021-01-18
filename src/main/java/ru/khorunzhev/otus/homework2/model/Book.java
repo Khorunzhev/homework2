@@ -17,6 +17,9 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = "comment")
 @Builder
 @Table(name = "BOOK")
+@NamedEntityGraph(name = "BOOK.authorAndGenre",
+        attributeNodes = { @NamedAttributeNode("author"),  @NamedAttributeNode("genre")}
+)
 public class Book {
 
     @Id
