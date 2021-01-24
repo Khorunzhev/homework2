@@ -23,12 +23,12 @@ public class CommentShellController {
     }
 
     @ShellMethod(value = "Update comment", key = {"uc", "UpdateComment"})
-    public void updateComment(@ShellOption({"curID", "ci"}) long curId, @ShellOption({"newText", "nt"})  String newText) {
+    public void updateComment(@ShellOption({"curID", "ci"}) String curId, @ShellOption({"newText", "nt"})  String newText) {
         commentService.updateComment(curId, newText);
     }
 
     @ShellMethod(value = "Delete comment", key = {"dc", "DeleteComment"})
-    public void deleteComment(long id) {
+    public void deleteComment(String id) {
         commentService.deleteComment(id);
     }
 

@@ -28,7 +28,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public void updateComment(long id, String newText) {
+    public void updateComment(String id, String newText) {
         commentRepository.findById(id)
                 .ifPresentOrElse(
                         (Comment comment) ->
@@ -41,7 +41,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public void deleteComment(long id) {
+    public void deleteComment(String id) {
         if (commentRepository.findById(id).isPresent()) {
             Comment dbComment = commentRepository.findById(id).get();
             commentRepository.delete(dbComment);
