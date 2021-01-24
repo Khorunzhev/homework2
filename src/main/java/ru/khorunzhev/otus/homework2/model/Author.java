@@ -1,21 +1,18 @@
 package ru.khorunzhev.otus.homework2.model;
 
 import lombok.*;
-
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Data
-@Entity
-@Table(name = "AUTHOR")
+@Document(value = "author")
 public class Author {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @Column(name = "FULLNAME", nullable = false, unique = true)
     private String fullName;
 }
