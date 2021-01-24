@@ -28,6 +28,8 @@ public class DataBaseChangeLog {
 
         genreRepository.save(new Genre("Фантастика"));
         genreRepository.save(new Genre("Детектив"));
+
+
     }
 
 }
