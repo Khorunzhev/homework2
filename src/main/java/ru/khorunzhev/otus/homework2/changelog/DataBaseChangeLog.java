@@ -1,5 +1,6 @@
 package ru.khorunzhev.otus.homework2.changelog;
 
+import com.github.cloudyrock.mongock.ChangeLog;
 import com.github.cloudyrock.mongock.ChangeSet;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -12,6 +13,7 @@ import ru.khorunzhev.otus.homework2.repositories.BookRepository;
 import ru.khorunzhev.otus.homework2.repositories.CommentRepository;
 import ru.khorunzhev.otus.homework2.repositories.GenreRepository;
 
+@ChangeLog
 public class DataBaseChangeLog {
 
     @ChangeSet(order = "001", id = "dropDb", author = "khorunzhev", runAlways = true)
