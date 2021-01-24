@@ -5,6 +5,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import ru.khorunzhev.otus.homework2.model.Author;
+import ru.khorunzhev.otus.homework2.model.Genre;
 import ru.khorunzhev.otus.homework2.repositories.AuthorRepository;
 import ru.khorunzhev.otus.homework2.repositories.BookRepository;
 import ru.khorunzhev.otus.homework2.repositories.CommentRepository;
@@ -22,7 +23,11 @@ public class DataBaseChangeLog {
                               GenreRepository genreRepository,
                               CommentRepository commentRepository,
                               BookRepository bookRepository) {
-        authorRepository.save(new Author("Pushkin"));
+        authorRepository.save(new Author("Иванов"));
+        authorRepository.save(new Author("Сидоров"));
+
+        genreRepository.save(new Genre("Фантастика"));
+        genreRepository.save(new Genre("Детектив"));
     }
 
 }
