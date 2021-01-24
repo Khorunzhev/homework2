@@ -7,8 +7,8 @@ mongock:
   runner-type: "ApplicationRunner" # default
   #runner-type: "InitializingBean"
   change-logs-scan-package:
-    - ru.otus.spring.mongock.changelog
+    - ru.khorunzhev.otus.homework2.changelog
 
 logging:
   level:
-    ROOT: ERROR
+    ROOT: INFO
