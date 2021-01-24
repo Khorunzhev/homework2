@@ -9,8 +9,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString(exclude = "comment")
-@EqualsAndHashCode(exclude = "comment")
+@ToString(exclude = "comments")
+@EqualsAndHashCode(exclude = "comments")
 @Builder
 @Document(value = "book")
 public class Book {
@@ -24,6 +24,12 @@ public class Book {
 
     private Genre genre;
 
-    private Set<Comment> comment;
+    private Set<Comment> comments;
+
+    public Book(String title, Author author, Genre genre) {
+        this.title = title;
+        this.genre = genre;
+        this.author = author;
+    }
 
 }
