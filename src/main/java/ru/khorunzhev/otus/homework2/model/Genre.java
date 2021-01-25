@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @Builder
 @Data
+@ToString(exclude = "id")
 @Document(value = "genre")
 public class Genre {
 

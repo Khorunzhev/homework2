@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @Builder
 @Data
-@ToString(exclude = "book")
+@ToString(exclude = "id")
 @Document(value = "comment")
 public class Comment {
 
@@ -18,5 +18,10 @@ public class Comment {
     private String text;
 
     Book book;
+
+    public Comment(String text, Book book) {
+        this.text = text;
+        this.book = book;
+    }
 
 }

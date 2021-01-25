@@ -5,6 +5,7 @@ import com.github.cloudyrock.mongock.ChangeSet;
 import com.mongodb.client.MongoDatabase;
 import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.model.Book;
+import ru.khorunzhev.otus.homework2.model.Comment;
 import ru.khorunzhev.otus.homework2.model.Genre;
 import ru.khorunzhev.otus.homework2.repositories.AuthorRepository;
 import ru.khorunzhev.otus.homework2.repositories.BookRepository;
@@ -38,6 +39,9 @@ public class DataBaseChangeLog {
 
         Book book = new Book("Name1", authorIvanov, genreDetective);
         bookRepository.save(book);
+
+        Comment comment = new Comment("Коммент", book);
+        commentRepository.save(comment);
 
     }
 
