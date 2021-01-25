@@ -1,13 +1,12 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://127.0.0.1
+      host: 127.0.0.1
       port: 27017
       database: library
 
 mongock:
-  runner-type: "ApplicationRunner" # default
-  #runner-type: "InitializingBean"
+  runner-type: "InitializingBean"
   change-logs-scan-package:
     - ru.khorunzhev.otus.homework2.changelog
 

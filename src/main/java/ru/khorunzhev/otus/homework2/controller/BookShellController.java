@@ -31,7 +31,7 @@ public class BookShellController {
     }
 
     @ShellMethod(value = "Get all books", key = {"allb", "GetAllBooks"})
-    public Iterable<Book> getAllBooks() {
+    public List<Book> getAllBooks() {
         return bookService.getAllBooks();
     }
 

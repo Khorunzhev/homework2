@@ -7,9 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Set;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
-@ToString(exclude = "comments")
+@ToString(exclude = {"id", "comments"})
 @EqualsAndHashCode(exclude = "comments")
 @Builder
 @Document(value = "book")
@@ -30,6 +29,21 @@ public class Book {
         this.title = title;
         this.genre = genre;
         this.author = author;
+    }
+
+    public Book(String id, String title, Author author, Genre genre) {
+        this.id = id;
+        this.title = title;
+        this.genre = genre;
+        this.author = author;
+    }
+
+    public Book(String id, String title, Author author, Genre genre, Set<Comment> comments) {
+        this.id = id;
+        this.title = title;
+        this.genre = genre;
+        this.author = author;
+        this.comments = comments;
     }
 
 }
