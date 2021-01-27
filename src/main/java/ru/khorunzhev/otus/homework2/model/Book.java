@@ -8,8 +8,6 @@ import java.util.Set;
 
 @NoArgsConstructor
 @Data
-@ToString(exclude = {"id", "comments"})
-@EqualsAndHashCode(exclude = "comments")
 @Builder
 @Document(value = "book")
 public class Book {
@@ -22,8 +20,6 @@ public class Book {
     private Author author;
 
     private Genre genre;
-
-    private Set<Comment> comments;
 
     public Book(String title, Author author, Genre genre) {
         this.title = title;
@@ -43,7 +39,6 @@ public class Book {
         this.title = title;
         this.genre = genre;
         this.author = author;
-        this.comments = comments;
     }
 
 }
