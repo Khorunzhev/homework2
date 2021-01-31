@@ -6,7 +6,7 @@ import ru.khorunzhev.otus.homework2.model.Book;
 import java.util.List;
 import java.util.Optional;
 
-public interface BookRepository extends MongoRepository<Book, String> {
+public interface BookRepository extends MongoRepository<Book, String>, BookRepositoryCustom {
 
     Book findBookByTitle(String title);
     List<Book> findAll();

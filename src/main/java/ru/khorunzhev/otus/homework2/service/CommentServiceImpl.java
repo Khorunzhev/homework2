@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.khorunzhev.otus.homework2.model.Book;
 import ru.khorunzhev.otus.homework2.model.Comment;
+import ru.khorunzhev.otus.homework2.repositories.BookRepository;
+import ru.khorunzhev.otus.homework2.repositories.BookRepositoryCustom;
 import ru.khorunzhev.otus.homework2.repositories.CommentRepository;
 
 @Service
@@ -14,6 +16,7 @@ import ru.khorunzhev.otus.homework2.repositories.CommentRepository;
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
+    private final BookRepository bookRepository;
     private final BookService bookService;
 
     @Transactional
@@ -43,7 +46,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void deleteComment(String id) {
         commentRepository.findById(id).ifPresentOrElse(
-                commentRepository::delete,
+                (Comment comment) -> {
+                    bookRepository.removeCommentArrayElementsById(comment.getId());
+                    commentRepository.delete(comment);
+                },
                 () -> log.info("Comment is not exist"));
     }
 
