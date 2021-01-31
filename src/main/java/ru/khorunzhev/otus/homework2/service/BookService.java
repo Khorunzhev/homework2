@@ -3,6 +3,7 @@ package ru.khorunzhev.otus.homework2.service;
 import ru.khorunzhev.otus.homework2.model.Book;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookService {
 
@@ -10,5 +11,6 @@ public interface BookService {
     void updateBook(String curTitle, String newTitle);
     void deleteBook(String title);
     Book getBookByTitle(String title);
+    Optional<Book> getBookById(Long id);
     List<Book> getAllBooks();
 }

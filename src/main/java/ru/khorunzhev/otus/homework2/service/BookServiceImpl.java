@@ -10,6 +10,7 @@ import ru.khorunzhev.otus.homework2.model.Book;
 import ru.khorunzhev.otus.homework2.model.Genre;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -61,6 +62,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book getBookByTitle(String title) {
         return bookRepository.findBookByTitle(title);
+    }
+
+    @Override
+    public Optional<Book> getBookById(Long id) {
+        return bookRepository.findById(id);
     }
 
     @Transactional(readOnly = true)
