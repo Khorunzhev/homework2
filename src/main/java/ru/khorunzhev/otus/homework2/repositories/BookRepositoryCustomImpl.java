@@ -15,7 +15,6 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
 
     private final MongoTemplate mongoTemplate;
 
-
     @Override
     public void removeCommentArrayElementsById(String id) {
         Update update =
