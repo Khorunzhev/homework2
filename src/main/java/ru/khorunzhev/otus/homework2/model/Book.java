@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Builder
 @Document(value = "book")
