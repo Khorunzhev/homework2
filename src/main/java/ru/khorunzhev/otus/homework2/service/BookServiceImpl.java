@@ -44,6 +44,12 @@ public class BookServiceImpl implements BookService {
         log.info(String.format("Book %s is updated", dbBook));
     }
 
+    @Override
+    public void updateBook(Book book) {
+        Book dbBook = bookRepository.save(book);
+        log.info(String.format("Book %s is updated", dbBook));
+    }
+
     @Transactional
     @Override
     public void deleteBook(final String title) {

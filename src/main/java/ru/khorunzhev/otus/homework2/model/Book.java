@@ -2,8 +2,10 @@ package ru.khorunzhev.otus.homework2.model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -21,6 +23,9 @@ public class Book {
 
     private Genre genre;
 
+    @DBRef
+    private List<Comment> comments;
+
     public Book(String title, Author author, Genre genre) {
         this.title = title;
         this.genre = genre;
@@ -34,11 +39,11 @@ public class Book {
         this.author = author;
     }
 
-    public Book(String id, String title, Author author, Genre genre, Set<Comment> comments) {
-        this.id = id;
+    public Book(String title, Author author, Genre genre, List<Comment> comments) {
         this.title = title;
         this.genre = genre;
         this.author = author;
+        this.comments = comments;
     }
 
 }

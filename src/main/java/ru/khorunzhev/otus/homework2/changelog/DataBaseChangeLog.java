@@ -12,6 +12,8 @@ import ru.khorunzhev.otus.homework2.repositories.BookRepository;
 import ru.khorunzhev.otus.homework2.repositories.CommentRepository;
 import ru.khorunzhev.otus.homework2.repositories.GenreRepository;
 
+import java.util.List;
+
 @ChangeLog(order = "001")
 public class DataBaseChangeLog {
 
@@ -37,11 +39,11 @@ public class DataBaseChangeLog {
         Genre genreDetective = new Genre("Детектив");
         genreRepository.save(genreDetective);
 
-        Book book = new Book("Name1", authorIvanov, genreDetective);
-        bookRepository.save(book);
-
-        Comment comment = new Comment("Коммент", book);
+        Comment comment = new Comment("Коммент");
         commentRepository.save(comment);
+
+        Book book = new Book("Name1", authorIvanov, genreDetective, List.of(comment));
+        bookRepository.save(book);
 
     }
 
