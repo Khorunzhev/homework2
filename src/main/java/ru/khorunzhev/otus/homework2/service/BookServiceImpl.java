@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.khorunzhev.otus.homework2.model.Comment;
 import ru.khorunzhev.otus.homework2.repositories.BookRepository;
 import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.model.Book;
@@ -43,6 +44,13 @@ public class BookServiceImpl implements BookService {
         dbBook.setTitle(newTitle);
         bookRepository.save(dbBook);
         log.info(String.format("Book %s is updated", dbBook));
+    }
+
+    @Override
+    public Book updateBook(Book book) {
+        Book savedBook = bookRepository.save(book);
+        log.info(String.format("Book %s is updated", savedBook));
+        return savedBook;
     }
 
     @Transactional
