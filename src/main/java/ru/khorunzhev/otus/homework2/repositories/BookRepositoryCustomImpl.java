@@ -1,5 +1,6 @@
 package ru.khorunzhev.otus.homework2.repositories;
 
+import com.mongodb.BasicDBObject;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.bson.types.ObjectId;
@@ -17,8 +18,9 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
 
     @Override
     public void removeCommentArrayElementsById(String id) {
-        val query = Query.query(Criteria.where("$id").is(new ObjectId(id)));
-        val update = new Update().pull("comments", query);
+        Update update =
+                new Update().pull("comments",
+                        new BasicDBObject("id", id));
         mongoTemplate.updateMulti(new Query(), update, Book.class);
     }
 
