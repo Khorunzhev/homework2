@@ -37,7 +37,6 @@ public class BookController {
     public String saveBook(Book book, Model model) {
         Book saved = bookService.updateBook(book);
         model.addAttribute(saved);
-        //Ошибка! Нужен редирект!
-        return "edit";
+        return "redirect:/";
     }
 }

@@ -40,12 +40,14 @@
 
     <div class="row">
         <label for="author-input">Author:</label>
-        <input id="author-input" name="author" type="text" th:value="${book.author.fullName}" value="Author"/>
+        <input id="author-input-id" name="book.author.id" type="hidden" th:value="${book.author.id}" value="Author.id"/>
+        <input id="author-input" name="book.author.fullName" type="text" th:value="${book.author.fullName}" value="Author.fullName"/>
     </div>
 
     <div class="row">
         <label for="genre-input">Genre:</label>
-        <input id="genre-input" name="author" type="text" th:value="${book.genre.name}" value="Genre"/>
+        <input id="genre-input-id" name="book.genre.id" type="hidden" th:value="${book.genre.id}" value="Genre.ID"/>
+        <input id="genre-input" name="book.genre.name" type="text" th:value="${book.genre.name}" value="Genre.NAME"/>
     </div>
 
     <div class="row">
