@@ -46,10 +46,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void deleteComment(String id) {
         commentRepository.findById(id).ifPresentOrElse(
-                (Comment comment) -> {
-                    commentRepository.delete(comment);
-                    bookRepository.removeCommentArrayElementsById(comment.getId());
-                },
+                commentRepository::delete,
                 () -> log.info("Comment is not exist"));
     }
 

@@ -22,9 +22,4 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
                         new BasicDBObject("id", id));
         mongoTemplate.updateMulti(new Query(), update, Book.class);
     }
-
-    @Override
-    public void updateCommentArrayElementsById(String id) {
-
-    }
 }
