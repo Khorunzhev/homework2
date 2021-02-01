@@ -30,24 +30,24 @@
 
     <div class="row">
         <label for="id-input">ID:</label>
-        <input id="id-input" type="text" readonly="readonly" th:value="${book.id}" value="1"/>
+        <input id="id-input" type="text" readonly="readonly" th:field="${book.id}" th:value="${book.id}" value="1"/>
     </div>
 
     <div class="row">
         <label for="title-input">Title:</label>
-        <input id="title-input" name="title" type="text" th:value="${book.title}" value="Ivan"/>
+        <input id="title-input" name="title" type="text" th:field="${book.title}" th:value="${book.title}" value="Ivan"/>
     </div>
 
     <div class="row">
         <label for="author-input">Author:</label>
-        <input id="author-input-id" name="book.author.id" type="hidden" th:value="${book.author.id}" value="Author.id"/>
-        <input id="author-input" name="book.author.fullName" type="text" th:value="${book.author.fullName}" value="Author.fullName"/>
+        <input id="author-input-id" name="book.author.id" type="hidden" th:field="${book.author.id}" th:value="${book.author.id}" value="Author.id"/>
+        <input id="author-input" name="book.author.fullName" type="text" th:field="${book.author.fullName}" th:value="${book.author.fullName}" value="Author.fullName"/>
     </div>
 
     <div class="row">
         <label for="genre-input">Genre:</label>
-        <input id="genre-input-id" name="book.genre.id" type="hidden" th:value="${book.genre.id}" value="Genre.ID"/>
-        <input id="genre-input" name="book.genre.name" type="text" th:value="${book.genre.name}" value="Genre.NAME"/>
+        <input id="genre-input-id" name="book.genre.id" type="hidden" th:field="${book.genre.id}" th:value="${book.genre.id}" value="Genre.ID"/>
+        <input id="genre-input" name="book.genre.name" type="text" th:field="${book.genre.name}" th:value="${book.genre.name}" value="Genre.NAME"/>
     </div>
 
     <div class="row">
