@@ -66,6 +66,12 @@ public class BookServiceImpl implements BookService {
         }
     }
 
+    @Override
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
+        log.info(String.format("Book with %s is deleted", id));
+    }
+
     @Transactional(readOnly = true)
     @Override
     public Book getBookByTitle(String title) {

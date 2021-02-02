@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +38,12 @@ public class BookController {
     public String saveBook(Book book, Model model) {
         Book saved = bookService.updateBook(book);
         model.addAttribute(saved);
+        return "redirect:/";
+    }
+
+    @PostMapping("/delete")
+    public String deleteBook(@RequestParam("id") Long id) {
+        bookService.deleteBook(id);
         return "redirect:/";
     }
 }

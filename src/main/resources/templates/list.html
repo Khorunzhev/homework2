@@ -30,7 +30,12 @@
         <td th:text="${book.id}">1</td>
         <td th:text="${book.title}">Title</td>
         <td>
-            <a th:href="@{/edit(id=${book.id})}" href="edit.html">Edit</a>
+            <button th:href="@{/edit(id=${book.id})}" href="edit.html">Edit</button>
+        </td>
+        <td>
+            <form th:action="@{/delete(id=${book.id})}" method="post">
+                <button type="submit">Delete</button>
+            </form>
         </td>
     </tr>
     </tbody>
