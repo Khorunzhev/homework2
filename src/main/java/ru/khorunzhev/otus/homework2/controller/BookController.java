@@ -27,6 +27,11 @@ public class BookController {
         return "list";
     }
 
+    @GetMapping("/create")
+    public String createBook(Model model) {
+        return "edit";
+    }
+
     @GetMapping("/edit")
     public String editPage(@RequestParam("id") Long id, Model model) {
         Book book = bookService.getBookById(id).orElseThrow(NotFoundException::new);

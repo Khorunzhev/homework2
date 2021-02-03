@@ -16,29 +16,33 @@
 </head>
 <body>
 <h1>Persons:</h1>
-
-<table class="persons">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="book : ${books}">
-        <td th:text="${book.id}">1</td>
-        <td th:text="${book.title}">Title</td>
-        <td>
-            <button th:href="@{/edit(id=${book.id})}" href="edit.html">Edit</button>
-        </td>
-        <td>
-            <form th:action="@{/delete(id=${book.id})}" method="post">
-                <button type="submit">Delete</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div>
+    <table class="persons">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.id}">1</td>
+            <td th:text="${book.title}">Title</td>
+            <td>
+                <a th:href="@{/edit(id=${book.id})}" href="edit.html">Edit</a>
+            </td>
+            <td>
+                <form th:action="@{/delete(id=${book.id})}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <a th:href="@{/create}" href="edit.html">Create</a>
+</div>
 </body>
 </html>
