@@ -41,6 +41,8 @@ public class BookController {
         List<Author> authors = authorService.getAllAuthors();
         model.addAttribute("authors", authors);
 
+        model.addAttribute("book", new Book());
+        
         return "edit";
     }
 
