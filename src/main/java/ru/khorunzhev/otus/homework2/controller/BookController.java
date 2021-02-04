@@ -34,7 +34,13 @@ public class BookController {
     }
 
     @GetMapping("/create")
-    public String createBook() {
+    public String createBook(Model model) {
+        List<Genre> genres = genreService.getAllGenres();
+        model.addAttribute("genres", genres);
+
+        List<Author> authors = authorService.getAllAuthors();
+        model.addAttribute("authors", authors);
+
         return "edit";
     }
 

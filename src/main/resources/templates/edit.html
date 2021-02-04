@@ -42,14 +42,22 @@
 
         <div class="row">
             <label for="author-input">Author:</label>
-            <input id="author-input-id" name="book.author.id" type="hidden" th:value="${book != null} ? (${book.author.id} ?: '') : ''" value="Author.id"/>
-            <input id="author-input" name="book.author.fullName" type="text" th:value="${book != null} ? (${book.author.fullName} ?: '') : ''" value="Author.fullName"/>
+            <select id="author-input" class="form-control" name="book.author">
+                <option th:each="author : ${authors}"
+                        th:value="${author.id}"
+                        th:text="${author.fullName}"
+                        th:selected="${book != null} ? (${book.author} != null ? ${author.equals(book.author)} : false) : false"></option>
+            </select>
         </div>
 
         <div class="row">
             <label for="genre-input">Genre:</label>
-            <input id="genre-input-id" name="book.genre.id" type="hidden" th:value="${book != null} ? (${book.genre.id} ?: '') : ''" value="Genre.ID"/>
-            <input id="genre-input" name="book.genre.name" type="text" th:value="${book != null} ? (${book.genre.name} ?: '') : ''" value="Genre.NAME"/>
+            <select id="genre-input" class="form-control" name="book.genre">
+                <option th:each="genre : ${genres}"
+                        th:value="${genre.id}"
+                        th:text="${genre.name}"
+                        th:selected="${book != null} ? (${book.genre} != null ? ${genre.equals(book.genre)} : false) : false"></option>
+            </select>
         </div>
 
         <div class="row">
