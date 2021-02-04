@@ -32,24 +32,24 @@
 
     <div th:if="${book != null}" class="row">
         <label for="id-input">ID:</label>
-        <input id="id-input" name="id" type="text" readonly="readonly" th:value="*{id}?: '()'" value="1"/>
+        <input id="id-input" name="id" type="text" readonly="readonly" th:value="*{id}?: ''" value="1"/>
     </div>
 
     <div class="row">
         <label for="title-input">Title:</label>
-        <input id="title-input" name="title" type="text" th:value="${book != null} ? (${book.title} ?: '()') : '()'" value="Ivan"/>
+        <input id="title-input" name="title" type="text" th:value="${book != null} ? (${book.title} ?: '') : ''" value="Ivan"/>
     </div>
 
         <div class="row">
             <label for="author-input">Author:</label>
-            <input id="author-input-id" name="book.author.id" type="hidden" th:value="${book != null} ? (${book.author.id} ?: '()') : '()'" value="Author.id"/>
-            <input id="author-input" name="book.author.fullName" type="text" th:value="${book != null} ? (${book.author.fullName} ?: '()') : '()'" value="Author.fullName"/>
+            <input id="author-input-id" name="book.author.id" type="hidden" th:value="${book != null} ? (${book.author.id} ?: '') : ''" value="Author.id"/>
+            <input id="author-input" name="book.author.fullName" type="text" th:value="${book != null} ? (${book.author.fullName} ?: '') : ''" value="Author.fullName"/>
         </div>
 
         <div class="row">
             <label for="genre-input">Genre:</label>
-            <input id="genre-input-id" name="book.genre.id" type="hidden" th:value="${book != null} ? (${book.genre.id} ?: '()') : '()'" value="Genre.ID"/>
-            <input id="genre-input" name="book.genre.name" type="text" th:value="${book != null} ? (${book.genre.name} ?: '()') : '()'" value="Genre.NAME"/>
+            <input id="genre-input-id" name="book.genre.id" type="hidden" th:value="${book != null} ? (${book.genre.id} ?: '') : ''" value="Genre.ID"/>
+            <input id="genre-input" name="book.genre.name" type="text" th:value="${book != null} ? (${book.genre.name} ?: '') : ''" value="Genre.NAME"/>
         </div>
 
         <div class="row">
