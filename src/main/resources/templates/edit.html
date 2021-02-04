@@ -26,11 +26,11 @@
 
 <!-- Book edition -->
 <div>
-    <h1 th:if="${book != null}">Edit book:</h1>
-    <h1 th:if="${book == null}">Create book:</h1>
-    <form id="edit-form" th:action="${book} != null ? '/edit' : '/create'" th:object="${book}" th:method="post" action="edit.html">
+    <h1 th:if="${book.id != null}">Edit book:</h1>
+    <h1 th:if="${book.id == null}">Create book:</h1>
+    <form id="edit-form" th:action="${book.id} != null ? '/edit' : '/create'" th:object="${book}" th:method="post" action="edit.html">
 
-    <div th:if="${book != null}" class="row">
+    <div th:if="${book.id != null}" class="row">
         <label for="id-input">ID:</label>
         <input id="id-input" name="id" type="text" readonly="readonly" th:value="*{id}?: ''" value="1"/>
     </div>
@@ -61,8 +61,8 @@
         </div>
 
         <div class="row">
-            <button type="submit" th:if="${book != null}">Edit</button>
-            <button type="submit" th:if="${book == null}">Create</button>
+            <button type="submit" th:if="${book.id != null}">Edit</button>
+            <button type="submit" th:if="${book.id == null}">Create</button>
         </div>
     </form>
 </div>

@@ -42,7 +42,7 @@ public class BookController {
         model.addAttribute("authors", authors);
 
         model.addAttribute("book", new Book());
-        
+
         return "edit";
     }
 
