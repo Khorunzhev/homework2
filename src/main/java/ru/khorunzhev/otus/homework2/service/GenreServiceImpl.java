@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.khorunzhev.otus.homework2.repositories.GenreRepository;
 import ru.khorunzhev.otus.homework2.model.Genre;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class GenreServiceImpl implements GenreService {
@@ -28,5 +30,10 @@ public class GenreServiceImpl implements GenreService {
         } else {
             return dbGenre;
         }
+    }
+
+    @Override
+    public List<Genre> getAllGenres() {
+        return genreRepository.findAll();
     }
 }

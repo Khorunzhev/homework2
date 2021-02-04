@@ -7,6 +7,8 @@ import ru.khorunzhev.otus.homework2.model.Genre;
 import ru.khorunzhev.otus.homework2.repositories.AuthorRepository;
 import ru.khorunzhev.otus.homework2.model.Author;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
@@ -28,5 +30,10 @@ public class AuthorServiceImpl implements AuthorService {
         } else {
             return dbAuthor;
         }
+    }
+
+    @Override
+    public List<Author> getAllAuthors() {
+        return authorRepository.findAll();
     }
 }
