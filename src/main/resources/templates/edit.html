@@ -25,34 +25,36 @@
 <body>
 
 <!-- Book edition -->
-<div th:object="${book}">
-    <form id="edit-form" th:action="@{/edit(id=${book.id})}" th:method="post" action="edit.html">
-        <h1>Person Info:</h1>
+<div>
+    <h1 th:if="${book != null}">Edit book:</h1>
+    <h1 th:if="${book == null}">Create book:</h1>
+    <form id="edit-form" th:action="${book} != null ? '/edit' : '/create'" th:object="${book}" th:method="post" action="edit.html">
 
     <div th:if="${book != null}" class="row">
         <label for="id-input">ID:</label>
-        <input id="id-input" type="text" readonly="readonly" th:field="${book.id}" th:value="${book.id}" value="1"/>
+        <input id="id-input" name="id" type="text" readonly="readonly" th:value="*{id}?: '()'" value="1"/>
     </div>
 
     <div class="row">
         <label for="title-input">Title:</label>
-        <input id="title-input" name="title" type="text" th:value="*{title}?: '()'" value="Ivan"/>
+        <input id="title-input" name="title" type="text" th:value="${book != null} ? (${book.title} ?: '()') : '()'" value="Ivan"/>
     </div>
 
         <div class="row">
             <label for="author-input">Author:</label>
-            <input id="author-input-id" name="book.author.id" type="hidden" th:field="${book.author.id}" th:value="${book.author.id}" value="Author.id"/>
-            <input id="author-input" name="book.author.fullName" type="text" th:field="${book.author.fullName}" th:value="${book.author.fullName}" value="Author.fullName"/>
+            <input id="author-input-id" name="book.author.id" type="hidden" th:value="${book != null} ? (${book.author.id} ?: '()') : '()'" value="Author.id"/>
+            <input id="author-input" name="book.author.fullName" type="text" th:value="${book != null} ? (${book.author.fullName} ?: '()') : '()'" value="Author.fullName"/>
         </div>
 
         <div class="row">
             <label for="genre-input">Genre:</label>
-            <input id="genre-input-id" name="book.genre.id" type="hidden" th:field="${book.genre.id}" th:value="${book.genre.id}" value="Genre.ID"/>
-            <input id="genre-input" name="book.genre.name" type="text" th:field="${book.genre.name}" th:value="${book.genre.name}" value="Genre.NAME"/>
+            <input id="genre-input-id" name="book.genre.id" type="hidden" th:value="${book != null} ? (${book.genre.id} ?: '()') : '()'" value="Genre.ID"/>
+            <input id="genre-input" name="book.genre.name" type="text" th:value="${book != null} ? (${book.genre.name} ?: '()') : '()'" value="Genre.NAME"/>
         </div>
 
         <div class="row">
-            <button type="submit">Save</button>
+            <button type="submit" th:if="${book != null}">Edit</button>
+            <button type="submit" th:if="${book == null}">Create</button>
         </div>
     </form>
 </div>

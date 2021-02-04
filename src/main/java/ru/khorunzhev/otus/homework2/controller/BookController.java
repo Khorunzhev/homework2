@@ -28,8 +28,14 @@ public class BookController {
     }
 
     @GetMapping("/create")
-    public String createBook(Model model) {
+    public String createBook() {
         return "edit";
+    }
+
+    @PostMapping("/create")
+    public String editPage(Book book) {
+        bookService.updateBook(book);
+        return "redirect:/";
     }
 
     @GetMapping("/edit")
