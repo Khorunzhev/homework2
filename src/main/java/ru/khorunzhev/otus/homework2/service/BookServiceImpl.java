@@ -19,33 +19,9 @@ import java.util.Optional;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
-    private final GenreService genreService;
-    private final AuthorService authorService;
+
 
     @Transactional
-    @Override
-    public void createBook(String title, String authorFullName, String genreName) {
-        Genre genreEntity = genreService.createGenre(genreName);
-        Author authorEntity = authorService.createAuthor(authorFullName);
-        Book book = Book.builder()
-                .title(title)
-                .author(authorEntity)
-                .genre(genreEntity)
-                .build();
-
-        bookRepository.save(book);
-        log.info(String.format("Book %s is created", book));
-    }
-
-    @Transactional
-    @Override
-    public void updateBook(String curTitle, String newTitle) {
-        Book dbBook = bookRepository.findBookByTitle(curTitle);
-        dbBook.setTitle(newTitle);
-        bookRepository.save(dbBook);
-        log.info(String.format("Book %s is updated", dbBook));
-    }
-
     @Override
     public Book updateBook(Book book) {
         Book savedBook = bookRepository.save(book);
@@ -54,18 +30,6 @@ public class BookServiceImpl implements BookService {
     }
 
     @Transactional
-    @Override
-    public void deleteBook(final String title) {
-        Book bookFromDB = bookRepository.findBookByTitle(title);
-        if (bookFromDB != null) {
-            bookRepository.delete(bookFromDB);
-            log.info(String.format("Book %s is deleted", bookFromDB));
-        } else
-        {
-            log.info(String.format("Book with title %s already deleted", title));
-        }
-    }
-
     @Override
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);
@@ -78,6 +42,7 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findBookByTitle(title);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Optional<Book> getBookById(Long id) {
         return bookRepository.findById(id);
