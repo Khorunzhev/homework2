@@ -3,9 +3,11 @@ package ru.khorunzhev.otus.homework2.events;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
+import org.springframework.data.mongodb.core.mapping.event.AfterDeleteEvent;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
 import org.springframework.stereotype.Component;
 import ru.khorunzhev.otus.homework2.model.Book;
+import ru.khorunzhev.otus.homework2.model.Comment;
 import ru.khorunzhev.otus.homework2.repositories.CommentRepository;
 
 import java.util.Objects;
@@ -23,5 +25,13 @@ public class MongoBookCascadeSaveEventsListener extends AbstractMongoEventListen
         if (book.getComments() != null) {
             book.getComments().stream().filter(e -> Objects.isNull(e.getId())).forEach(commentRepository::save);
         }
+    }
+
+    @Override
+    public void onAfterDelete(AfterDeleteEvent<Book> event) {
+        super.onAfterDelete(event);
+        val source = event.getSource();
+        val id = source.get("_id").toString();
+        commentRepository.deleteById(id);
     }
 }
