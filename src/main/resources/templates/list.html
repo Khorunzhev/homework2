@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>List of all books</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        .books td {
+            border: 1px solid lightgray;
+            padding: 5px;
+        }
+    </style>
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Persons:</h1>
+<div>
+    <table class="books">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<div>
+    <a th:href="@{/create}" href="edit.html">Create</a>
+</div>
+<script>
+    $(function () {
+        $.get('/api/books').done(function (books) {
+            books.forEach(function (book) {
+                $('tbody').append(`
+                <tr>
+                    <td>${book.id}</td>
+                    <td>${book.title}</td>
+                    <td>
+                        <a href="/edit?id=${book.id}"  href="edit.html">Edit</a>
+                    </td>
+                    <td>
+                        <form action="/delete?id=${book.id}" method="post">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                `)
+            });
+        })
+    });
+</script>
+</body>
+</html>
