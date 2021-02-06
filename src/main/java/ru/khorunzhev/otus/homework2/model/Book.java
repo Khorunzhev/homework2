@@ -42,6 +42,6 @@ public class Book {
     @Fetch(FetchMode.SELECT)
     @BatchSize(size = 3)
     @OneToMany(targetEntity = Comment.class, mappedBy = "book", fetch = FetchType.LAZY)
-    private Set<Comment> comment;
+    private List<Comment> comment;
 
 }

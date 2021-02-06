@@ -1,6 +1,7 @@
 package ru.khorunzhev.otus.homework2.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -24,6 +25,7 @@ public class Comment {
 
     @ManyToOne(targetEntity = Book.class, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "BOOK_ID")
+    @JsonIgnore
     Book book;
 
 }
