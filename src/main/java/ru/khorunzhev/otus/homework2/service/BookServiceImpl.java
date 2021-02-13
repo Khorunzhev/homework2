@@ -31,7 +31,7 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public void deleteBook(Long id) {
+    public void deleteBook(String id) {
         bookRepository.deleteById(id);
         log.info(String.format("Book with %s is deleted", id));
     }
@@ -44,7 +44,7 @@ public class BookServiceImpl implements BookService {
 
     @Transactional(readOnly = true)
     @Override
-    public Optional<Book> getBookById(Long id) {
+    public Optional<Book> getBookById(String id) {
         return bookRepository.findById(id);
     }
 

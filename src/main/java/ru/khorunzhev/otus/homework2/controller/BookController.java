@@ -53,7 +53,7 @@ public class BookController {
     }
 
     @GetMapping("/edit")
-    public String editPage(@RequestParam("id") Long id, Model model) {
+    public String editPage(@RequestParam("id") String id, Model model) {
         Book book = bookService.getBookById(id).orElseThrow(NotFoundException::new);
         model.addAttribute("book", book);
 
@@ -74,7 +74,7 @@ public class BookController {
     }
 
     @PostMapping("/delete")
-    public String deleteBook(@RequestParam("id") Long id) {
+    public String deleteBook(@RequestParam("id") String id) {
         bookService.deleteBook(id);
         return "redirect:/";
     }

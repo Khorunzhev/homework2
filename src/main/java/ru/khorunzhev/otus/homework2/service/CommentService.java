@@ -5,7 +5,7 @@ import ru.khorunzhev.otus.homework2.model.Comment;
 public interface CommentService {
 
     void createComment(String text, String bookTitle);
-    void updateComment(long id, String newText);
-    void deleteComment(long id);
+    void updateComment(String id, String newText);
+    void deleteComment(String id);
     Iterable<Comment> getAllComments();
 }

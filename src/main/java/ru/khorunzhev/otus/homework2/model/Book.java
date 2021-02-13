@@ -1,47 +1,49 @@
 package ru.khorunzhev.otus.homework2.model;
 
 import lombok.*;
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity
-@ToString(exclude = "comment")
-@EqualsAndHashCode(exclude = "comment")
 @Builder
-@Table(name = "BOOK")
-@NamedEntityGraph(name = "BOOK.authorAndGenre",
-        attributeNodes = { @NamedAttributeNode("author"),  @NamedAttributeNode("genre")}
-)
+@Document(value = "book")
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @Column(name = "TITLE", nullable = false, unique = true)
     private String title;
 
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne(targetEntity = Author.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "AUTHOR_ID")
     private Author author;
 
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne(targetEntity = Genre.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "GENRE_ID")
     private Genre genre;
 
-    @Fetch(FetchMode.SELECT)
-    @BatchSize(size = 3)
-    @OneToMany(targetEntity = Comment.class, mappedBy = "book", fetch = FetchType.LAZY)
-    private Set<Comment> comment;
+    private List<Comment> comments;
+
+    public Book(String title, Author author, Genre genre) {
+        this.title = title;
+        this.genre = genre;
+        this.author = author;
+    }
+
+    public Book(String id, String title, Author author, Genre genre) {
+        this.id = id;
+        this.title = title;
+        this.genre = genre;
+        this.author = author;
+    }
+
+    public Book(String title, Author author, Genre genre, List<Comment> comments) {
+        this.title = title;
+        this.genre = genre;
+        this.author = author;
+        this.comments = comments;
+    }
 
 }

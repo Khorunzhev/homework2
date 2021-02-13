@@ -1,21 +1,23 @@
 package ru.khorunzhev.otus.homework2.model;
 
 import lombok.*;
-
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Data
-@Entity
-@Table(name = "GENRE")
+@ToString(exclude = "id")
+@Document(value = "genre")
 public class Genre {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "NAME", nullable = false, unique = true)
+    private String id;
     private String name;
+
+    public Genre (String name) {
+        this.name = name;
+    }
 
 }

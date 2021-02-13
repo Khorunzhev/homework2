@@ -21,14 +21,14 @@ public class CommentServiceImpl implements CommentService {
     public void createComment(String text, String bookTitle) {
         Book book = bookService.getBookByTitle(bookTitle);
 
-        Comment comment = Comment.builder().text(text).book(book).build();
+        Comment comment = Comment.builder().text(text).(book).build();
 
         commentRepository.save(comment);
     }
 
     @Transactional
     @Override
-    public void updateComment(long id, String newText) {
+    public void updateComment(String id, String newText) {
         commentRepository.findById(id)
                 .ifPresentOrElse(
                         (Comment comment) ->
@@ -41,7 +41,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public void deleteComment(long id) {
+    public void deleteComment(String id) {
         if (commentRepository.findById(id).isPresent()) {
             Comment dbComment = commentRepository.findById(id).get();
             commentRepository.delete(dbComment);
