@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.khorunzhev.otus.homework2.model.Book;
 import ru.khorunzhev.otus.homework2.model.Comment;
-import ru.khorunzhev.otus.homework2.repositories.BookRepository;
 import ru.khorunzhev.otus.homework2.repositories.CommentRepository;
 
 @Service

@@ -1,7 +1,6 @@
 package ru.khorunzhev.otus.homework2.repositories;
 
 import lombok.val;
-import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,8 +12,6 @@ import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.model.Book;
 import ru.khorunzhev.otus.homework2.model.Genre;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataJpaTest
 public class BookRepositoryTest {

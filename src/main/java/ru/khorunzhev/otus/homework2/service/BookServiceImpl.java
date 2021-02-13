@@ -1,20 +1,18 @@
 package ru.khorunzhev.otus.homework2.service;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.khorunzhev.otus.homework2.model.Comment;
 import ru.khorunzhev.otus.homework2.repositories.BookRepository;
-import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.model.Book;
-import ru.khorunzhev.otus.homework2.model.Genre;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Log
 public class BookServiceImpl implements BookService {
 
