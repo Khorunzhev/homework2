@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.khorunzhev.otus.homework2.model.Book;
 import ru.khorunzhev.otus.homework2.model.Comment;
+import ru.khorunzhev.otus.homework2.repositories.BookRepository;
 import ru.khorunzhev.otus.homework2.repositories.CommentRepository;
 
 @Service
@@ -20,10 +21,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void createComment(String text, String bookTitle) {
         Book book = bookService.getBookByTitle(bookTitle);
+        Comment comment = Comment.builder().text(text).build();
+        book.getComments().add(comment);
 
-        Comment comment = Comment.builder().text(text).(book).build();
-
-        commentRepository.save(comment);
+        bookService.updateBook(book);
     }
 
     @Transactional
