@@ -1,15 +1,13 @@
 package ru.khorunzhev.otus.homework2.service;
 
-import org.springframework.transaction.annotation.Transactional;
-import ru.khorunzhev.otus.homework2.model.Author;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import ru.khorunzhev.otus.homework2.model.Genre;
-
-import java.util.List;
 
 public interface GenreService {
 
-    Genre getGenre(String title);
-    Genre createGenre(String title);
-    List<Genre> getAllGenres();
+    Mono<Genre> getGenre(String title);
+    Mono<Genre> createGenre(String title);
+    Flux<Genre> getAllGenres();
 
 }

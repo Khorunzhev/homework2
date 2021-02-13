@@ -39,7 +39,7 @@ public class BookRepositoryTest {
 
         em.persist(expectedBook);
 
-        Book actualBook = bookRepository.findBookByTitle(expectedBook.getTitle());
+        Book actualBook = bookRepository.findBookByTitle(expectedBook.getTitle()).block();
 
         Assertions.assertEquals(expectedBook, actualBook, "The books are not identical");
     }

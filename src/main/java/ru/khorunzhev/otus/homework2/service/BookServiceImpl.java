@@ -1,15 +1,13 @@
 package ru.khorunzhev.otus.homework2.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import ru.khorunzhev.otus.homework2.repositories.BookRepository;
 import ru.khorunzhev.otus.homework2.model.Book;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,8 +19,8 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public Book updateBook(Book book) {
-        Book savedBook = bookRepository.save(book);
+    public Mono<Book> updateBook(Book book) {
+        Mono<Book> savedBook = bookRepository.save(book);
         log.info(String.format("Book %s is updated", savedBook));
         return savedBook;
     }
@@ -36,19 +34,19 @@ public class BookServiceImpl implements BookService {
 
     @Transactional(readOnly = true)
     @Override
-    public Book getBookByTitle(String title) {
+    public Mono<Book> getBookByTitle(String title) {
         return bookRepository.findBookByTitle(title);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Optional<Book> getBookById(String id) {
+    public Mono<Book> getBookById(String id) {
         return bookRepository.findById(id);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Book> getAllBooks() {
+    public Flux<Book> getAllBooks() {
         return bookRepository.findAll();
     }
 }

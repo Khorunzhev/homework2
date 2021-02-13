@@ -1,13 +1,13 @@
 package ru.khorunzhev.otus.homework2.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.model.Book;
 import ru.khorunzhev.otus.homework2.model.Genre;
@@ -28,7 +28,7 @@ public class BookController {
 
     @GetMapping("/")
     public String listPage(Model model) {
-        List<Book> books = bookService.getAllBooks();
+        Flux<Book> books = bookService.getAllBooks();
         model.addAttribute("books", books);
         return "list";
     }
@@ -54,7 +54,7 @@ public class BookController {
 
     @GetMapping("/edit")
     public String editPage(@RequestParam("id") String id, Model model) {
-        Book book = bookService.getBookById(id).orElseThrow(NotFoundException::new);
+        Mono<Book> book = bookService.getBookById(id);
         model.addAttribute("book", book);
 
         List<Genre> genres = genreService.getAllGenres();
@@ -68,7 +68,7 @@ public class BookController {
     
     @PostMapping("/edit")
     public String saveBook(Book book, Model model) {
-        Book saved = bookService.updateBook(book);
+        Mono<Book> saved = bookService.updateBook(book);
         model.addAttribute(saved);
         return "redirect:/";
     }

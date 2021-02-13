@@ -2,11 +2,16 @@ package ru.khorunzhev.otus.homework2.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.data.util.NullableUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import ru.khorunzhev.otus.homework2.model.Book;
 import ru.khorunzhev.otus.homework2.model.Comment;
 import ru.khorunzhev.otus.homework2.repositories.CommentRepository;
+
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -42,17 +47,25 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     @Override
     public void deleteComment(String id) {
-        if (commentRepository.findById(id).isPresent()) {
-            Comment dbComment = commentRepository.findById(id).get();
-            commentRepository.delete(dbComment);
-        } else {
-            log.info("Comment is not exist");
-        }
+        commentRepository.findById(id)
+                .flatMap(comment -> {
+            if(NullableUtils.isNonNull(comment)){
+                Mono.error(new Exception());
+            }else{
+                commentRepository.delete(comment);
+            }
+        }).then();
+                .flatMap(commentRepository::delete)
+    }
+
+    public void print(String str)
+    {
+        System.out.println(str);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Iterable<Comment> getAllComments() {
+    public Flux<Comment> getAllComments() {
         return commentRepository.findAll();
     }
 }
