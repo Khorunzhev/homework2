@@ -25,7 +25,7 @@ public class AuthorRepositoryTest {
         Author expectedAuthor = Author.builder().fullName("FIO").build();
         em.persist(expectedAuthor);
 
-        Author actualAuthor = authorRepository.findByFullName(expectedAuthor.getFullName());
+        Author actualAuthor = authorRepository.findByFullName(expectedAuthor.getFullName()).block();
 
         Assertions.assertEquals(expectedAuthor, actualAuthor, "The author are not identical");
     }
