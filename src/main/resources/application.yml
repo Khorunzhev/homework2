@@ -5,6 +5,11 @@ spring:
       port: 0
       database: library
 
+mongock:
+  runner-type: "InitializingBean"
+  change-logs-scan-package:
+    - ru.khorunzhev.otus.homework2.changelog
+
 logging:
   level:
     ROOT: INFO

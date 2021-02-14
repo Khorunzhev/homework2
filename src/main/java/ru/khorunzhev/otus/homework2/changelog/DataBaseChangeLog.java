@@ -2,7 +2,9 @@ package ru.khorunzhev.otus.homework2.changelog;
 
 import com.github.cloudyrock.mongock.ChangeLog;
 import com.github.cloudyrock.mongock.ChangeSet;
+import com.mongodb.client.internal.MongoDatabaseImpl;
 import com.mongodb.reactivestreams.client.MongoDatabase;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
 import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.model.Book;
 import ru.khorunzhev.otus.homework2.model.Comment;
@@ -18,8 +20,8 @@ import java.util.List;
 public class DataBaseChangeLog {
 
     @ChangeSet(order = "001", id = "dropDb", author = "khorunzhev", runAlways = true)
-    public void dropDb(MongoDatabase db) {
-        db.drop();
+    public void dropDb(MongoDatabaseFactory db) {
+        db.getMongoDatabase().drop();
     }
 
     @ChangeSet(order = "002", id = "insertLibrary", author = "khorunzhev", runAlways = true)
