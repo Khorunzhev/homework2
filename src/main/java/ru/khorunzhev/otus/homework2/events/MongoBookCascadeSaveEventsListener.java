@@ -37,9 +37,11 @@ public class MongoBookCascadeSaveEventsListener extends AbstractMongoEventListen
         super.onBeforeDelete(event);
         val source = event.getSource();
         String id = source.get("_id").toString();
-        Book book = bookRepository.findById(id).orElseThrow();
-        if (book.getComments() != null) {
-            book.getComments().forEach(commentRepository::delete);
-        }
+        bookRepository.findById(id)
+                .subscribe(book -> {
+                    if (book.getComments() != null)
+                        book.getComments()
+                                .forEach(commentRepository::delete);
+                });
     }
 }

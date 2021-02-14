@@ -24,43 +24,33 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     @Override
     public void createComment(String text, String bookTitle) {
-        Book book = bookService.getBookByTitle(bookTitle);
-        Comment comment = Comment.builder().text(text).build();
-        book.getComments().add(comment);
-
-        bookService.updateBook(book);
+        bookService.getBookByTitle(bookTitle)
+                .subscribe(book -> {
+                    Comment comment = Comment.builder().text(text).build();
+                    book.getComments().add(comment);
+                    commentRepository.save(comment);
+                    bookService.updateBook(book);
+                });
     }
 
     @Transactional
     @Override
     public void updateComment(String id, String newText) {
         commentRepository.findById(id)
-                .ifPresentOrElse(
-                        (Comment comment) ->
-                        {
-                            comment.setText(newText);
-                            commentRepository.save(comment);
-                        },
-                        () -> log.info("Comment is not exist"));
+                .subscribe(comment -> {
+                    comment.setText(newText);
+                    commentRepository.save(comment);
+                });
     }
 
     @Transactional
     @Override
     public void deleteComment(String id) {
-        commentRepository.findById(id)
-                .flatMap(comment -> {
-            if(NullableUtils.isNonNull(comment)){
-                Mono.error(new Exception());
-            }else{
-                commentRepository.delete(comment);
-            }
-        }).then();
-                .flatMap(commentRepository::delete)
-    }
-
-    public void print(String str)
-    {
-        System.out.println(str);
+        commentRepository
+                .findById(id)
+                .subscribe(comment -> {
+                    deleteComment(comment.getId());
+                });
     }
 
     @Transactional(readOnly = true)

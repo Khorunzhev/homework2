@@ -35,11 +35,9 @@ public class BookController {
 
     @GetMapping("/create")
     public String createBook(Model model) {
-        List<Genre> genres = genreService.getAllGenres();
-        model.addAttribute("genres", genres);
+        model.addAttribute("genres", genreService.getAllGenres());
 
-        List<Author> authors = authorService.getAllAuthors();
-        model.addAttribute("authors", authors);
+        model.addAttribute("authors", authorService.getAllAuthors());
 
         model.addAttribute("book", new Book());
 
@@ -57,11 +55,9 @@ public class BookController {
         Mono<Book> book = bookService.getBookById(id);
         model.addAttribute("book", book);
 
-        List<Genre> genres = genreService.getAllGenres();
-        model.addAttribute("genres", genres);
+        model.addAttribute("genres", genreService.getAllGenres());
 
-        List<Author> authors = authorService.getAllAuthors();
-        model.addAttribute("authors", authors);
+        model.addAttribute("authors", authorService.getAllAuthors());
 
         return "edit";
     }
