@@ -3,16 +3,13 @@ package ru.khorunzhev.otus.homework2.events;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
-import org.springframework.data.mongodb.core.mapping.event.AfterDeleteEvent;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
 import org.springframework.data.mongodb.core.mapping.event.BeforeDeleteEvent;
 import org.springframework.stereotype.Component;
 import ru.khorunzhev.otus.homework2.model.Book;
-import ru.khorunzhev.otus.homework2.model.Comment;
-import ru.khorunzhev.otus.homework2.repositories.BookRepository;
-import ru.khorunzhev.otus.homework2.repositories.CommentRepository;
+import ru.khorunzhev.otus.homework2.repositories.react.BookRepository;
+import ru.khorunzhev.otus.homework2.repositories.react.CommentRepository;
 
-import java.util.List;
 import java.util.Objects;
 
 @Component

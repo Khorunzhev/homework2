@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.event.AfterDeleteEvent;
 import org.springframework.data.mongodb.core.mapping.event.AfterSaveEvent;
 import org.springframework.stereotype.Component;
 import ru.khorunzhev.otus.homework2.model.Comment;
-import ru.khorunzhev.otus.homework2.repositories.BookRepository;
+import ru.khorunzhev.otus.homework2.repositories.react.BookRepository;
 
 @Component
 @RequiredArgsConstructor

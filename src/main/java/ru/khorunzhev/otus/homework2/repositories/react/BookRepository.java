@@ -1,4 +1,4 @@
-package ru.khorunzhev.otus.homework2.repositories;
+package ru.khorunzhev.otus.homework2.repositories.react;
 
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;

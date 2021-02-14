@@ -7,10 +7,10 @@ import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.model.Book;
 import ru.khorunzhev.otus.homework2.model.Comment;
 import ru.khorunzhev.otus.homework2.model.Genre;
-import ru.khorunzhev.otus.homework2.repositories.AuthorRepository;
-import ru.khorunzhev.otus.homework2.repositories.BookRepository;
-import ru.khorunzhev.otus.homework2.repositories.CommentRepository;
-import ru.khorunzhev.otus.homework2.repositories.GenreRepository;
+import ru.khorunzhev.otus.homework2.repositories.nonReact.AuthorNonReactRepository;
+import ru.khorunzhev.otus.homework2.repositories.nonReact.BookNonReactRepository;
+import ru.khorunzhev.otus.homework2.repositories.nonReact.CommentNonReactRepository;
+import ru.khorunzhev.otus.homework2.repositories.nonReact.GenreNonReactRepository;
 
 import java.util.List;
 
@@ -23,10 +23,10 @@ public class DataBaseChangeLog {
     }
 
     @ChangeSet(order = "002", id = "insertLibrary", author = "khorunzhev", runAlways = true)
-    public void insertLibrary(AuthorRepository authorRepository,
-                              GenreRepository genreRepository,
-                              CommentRepository commentRepository,
-                              BookRepository bookRepository) {
+    public void insertLibrary(AuthorNonReactRepository authorRepository,
+                              GenreNonReactRepository genreRepository,
+                              CommentNonReactRepository commentRepository,
+                              BookNonReactRepository bookRepository) {
         Author authorIvanov = new Author("Иванов");
         authorRepository.save(authorIvanov);
 

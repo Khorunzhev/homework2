@@ -1,4 +1,4 @@
-package ru.khorunzhev.otus.homework2.repositories;
+package ru.khorunzhev.otus.homework2.repositories.react;
 
 import ru.khorunzhev.otus.homework2.model.Comment;
 
