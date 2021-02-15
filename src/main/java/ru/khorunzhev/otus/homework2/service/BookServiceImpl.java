@@ -20,9 +20,7 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public Mono<Book> updateBook(Book book) {
-        Mono<Book> savedBook = bookRepository.save(book);
-        log.info(String.format("Book %s is updated", savedBook));
-        return savedBook;
+        return bookRepository.save(book);
     }
 
     @Transactional

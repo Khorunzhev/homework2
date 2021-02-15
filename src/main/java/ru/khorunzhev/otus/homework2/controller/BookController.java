@@ -43,8 +43,8 @@ public class BookController {
     }
 
     @PostMapping("/create")
-    public String editPage(Book book) {
-        bookService.updateBook(book);
+    public String editPage(Book book, Model model) {
+        model.addAttribute("book", bookService.updateBook(book));
         return "redirect:/";
     }
 
