@@ -3,12 +3,14 @@ package ru.khorunzhev.otus.homework2.repositories;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.repositories.react.AuthorRepository;
 
-@DataJpaTest
+@DataMongoTest
 public class AuthorRepositoryTest {
 
 
@@ -16,12 +18,12 @@ public class AuthorRepositoryTest {
     private AuthorRepository authorRepository;
 
     @Autowired
-    private TestEntityManager em;
+    private MongoTemplate mt;
 
     @Test
     void checkAuthorFindMethod() {
         Author expectedAuthor = Author.builder().fullName("FIO").build();
-        em.persist(expectedAuthor);
+        mt.save(expectedAuthor);
 
         Author actualAuthor = authorRepository.findByFullName(expectedAuthor.getFullName()).block();
 
