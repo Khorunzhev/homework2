@@ -2,12 +2,11 @@ package ru.khorunzhev.otus.homework2.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import ru.khorunzhev.otus.homework2.repositories.react.BookRepository;
+import ru.khorunzhev.otus.homework2.repositories.BookRepository;
 import ru.khorunzhev.otus.homework2.model.Book;
 
 @Service
@@ -20,15 +19,14 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public Mono<Book> updateBook(Book book) {
+    public Mono updateBook(Book book) {
         return bookRepository.save(book);
     }
 
     @Transactional
     @Override
-    public void deleteBook(String id) {
-        bookRepository.deleteById(id)
-                .subscribe(s -> String.format("Book with %s is deleted", id));
+    public Mono deleteBook(String id) {
+        return bookRepository.deleteById(id);
     }
 
     @Transactional(readOnly = true)

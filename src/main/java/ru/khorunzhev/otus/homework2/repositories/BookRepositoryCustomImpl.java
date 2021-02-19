@@ -1,4 +1,4 @@
-package ru.khorunzhev.otus.homework2.repositories.react;
+package ru.khorunzhev.otus.homework2.repositories;
 
 import com.mongodb.BasicDBObject;
 import lombok.RequiredArgsConstructor;

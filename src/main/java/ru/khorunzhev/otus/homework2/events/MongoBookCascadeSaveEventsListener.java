@@ -7,8 +7,8 @@ import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
 import org.springframework.data.mongodb.core.mapping.event.BeforeDeleteEvent;
 import org.springframework.stereotype.Component;
 import ru.khorunzhev.otus.homework2.model.Book;
-import ru.khorunzhev.otus.homework2.repositories.react.BookRepository;
-import ru.khorunzhev.otus.homework2.repositories.react.CommentRepository;
+import ru.khorunzhev.otus.homework2.repositories.BookRepository;
+import ru.khorunzhev.otus.homework2.repositories.CommentRepository;
 
 import java.util.Objects;
 

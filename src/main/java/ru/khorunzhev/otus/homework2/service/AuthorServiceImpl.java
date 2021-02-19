@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import ru.khorunzhev.otus.homework2.repositories.react.AuthorRepository;
+import ru.khorunzhev.otus.homework2.repositories.AuthorRepository;
 import ru.khorunzhev.otus.homework2.model.Author;
 
 @Service
@@ -22,13 +22,8 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Mono<Author> createAuthor(String fullName) {
-        Mono<Author> dbAuthor = authorRepository.findByFullName(fullName);
-        if (dbAuthor == null) {
-            Author newAuthor = Author.builder().fullName(fullName).build();
-            return authorRepository.save(newAuthor);
-        } else {
-            return dbAuthor;
-        }
+        return authorRepository.save(
+                Author.builder().fullName(fullName).build());
     }
 
     @Override

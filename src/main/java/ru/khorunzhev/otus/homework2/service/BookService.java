@@ -6,8 +6,8 @@ import ru.khorunzhev.otus.homework2.model.Book;
 
 public interface BookService {
 
-    Mono<Book> updateBook(Book book);
-    void deleteBook(String id);
+    Mono updateBook(Book book);
+    Mono deleteBook(String id);
     Mono<Book> getBookByTitle(String title);
     Mono<Book> getBookById(String id);
     Flux<Book> getAllBooks();

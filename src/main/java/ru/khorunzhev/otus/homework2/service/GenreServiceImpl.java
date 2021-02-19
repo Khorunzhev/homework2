@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import ru.khorunzhev.otus.homework2.repositories.react.GenreRepository;
+import ru.khorunzhev.otus.homework2.repositories.GenreRepository;
 import ru.khorunzhev.otus.homework2.model.Genre;
 
 @Service

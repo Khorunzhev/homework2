@@ -5,8 +5,10 @@ import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import ru.khorunzhev.otus.homework2.model.Comment;
-import ru.khorunzhev.otus.homework2.repositories.react.CommentRepository;
+import ru.khorunzhev.otus.homework2.repositories.CommentRepository;
+
 
 @Service
 @AllArgsConstructor
@@ -18,33 +20,35 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public void createComment(String text, String bookTitle) {
-        bookService.getBookByTitle(bookTitle)
-                .subscribe(book -> {
+    public Mono createComment(String text, String bookTitle) {
+        return bookService.getBookByTitle(bookTitle)
+                .switchIfEmpty(Mono.empty())
+                .map(book -> {
                     Comment comment = Comment.builder().text(text).build();
                     book.getComments().add(comment);
                     commentRepository.save(comment);
-                    bookService.updateBook(book);
+                    return bookService.updateBook(book);
                 });
     }
 
     @Transactional
     @Override
-    public void updateComment(String id, String newText) {
-        commentRepository.findById(id)
-                .subscribe(comment -> {
+    public Mono updateComment(String id, String newText) {
+        return commentRepository.findById(id)
+                .switchIfEmpty(Mono.empty())
+                .map(comment -> {
                     comment.setText(newText);
-                    commentRepository.save(comment);
+                    return commentRepository.save(comment);
                 });
     }
 
     @Transactional
     @Override
-    public void deleteComment(String id) {
-        commentRepository
-                .findById(id)
-                .subscribe(comment -> {
-                    deleteComment(comment.getId());
+    public Mono deleteComment(String id) {
+        return commentRepository.findById(id)
+                .switchIfEmpty(Mono.empty())
+                .map(comment -> {
+                   return deleteComment(comment.getId());
                 });
     }
 
