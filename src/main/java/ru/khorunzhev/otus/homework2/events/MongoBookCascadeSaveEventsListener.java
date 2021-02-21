@@ -25,7 +25,10 @@ public class MongoBookCascadeSaveEventsListener extends AbstractMongoEventListen
         super.onBeforeConvert(event);
         val book = event.getSource();
         if (book.getComments() != null) {
-            book.getComments().stream().filter(e -> Objects.isNull(e.getId())).forEach(commentRepository::save);
+            book.getComments()
+                .stream()
+                .filter(e -> Objects.isNull(e.getId()))
+                .forEach(commentRepository::save);
         }
     }
 

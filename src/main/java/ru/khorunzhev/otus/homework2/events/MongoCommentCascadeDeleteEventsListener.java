@@ -20,13 +20,17 @@ public class MongoCommentCascadeDeleteEventsListener extends AbstractMongoEventL
         super.onAfterDelete(event);
         val source = event.getSource();
         val id = source.get("_id").toString();
-        bookRepository.removeCommentArrayElementsById(id);
+        bookRepository
+                .removeCommentArrayElementsById(id)
+                .subscribe();
     }
 
     @Override
     public void onAfterSave(AfterSaveEvent<Comment> event) {
         super.onAfterSave(event);
         Comment source = event.getSource();
-        bookRepository.updateCommentArrayElementsById(source);
+        bookRepository
+                .updateCommentArrayElementsById(source)
+                .subscribe();
     }
 }

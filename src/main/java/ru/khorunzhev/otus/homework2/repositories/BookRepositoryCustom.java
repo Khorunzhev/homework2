@@ -1,10 +1,11 @@
 package ru.khorunzhev.otus.homework2.repositories;
 
+import reactor.core.publisher.Mono;
 import ru.khorunzhev.otus.homework2.model.Comment;
 
 public interface BookRepositoryCustom {
 
-    void removeCommentArrayElementsById(String id);
-    void updateCommentArrayElementsById(Comment newComment);
+    Mono removeCommentArrayElementsById(String id);
+    Mono updateCommentArrayElementsById(Comment newComment);
 
 }
