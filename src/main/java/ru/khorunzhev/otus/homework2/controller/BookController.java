@@ -68,8 +68,8 @@ public class BookController {
     }
 
     @PostMapping("/delete")
-    public String deleteBook(@RequestParam("id") String id) {
-        bookService.deleteBook(id);
+    public String deleteBook(@RequestParam("id") String id, Model model) {
+        model.addAttribute(bookService.deleteBook(id));
         return "redirect:/";
     }
 }
