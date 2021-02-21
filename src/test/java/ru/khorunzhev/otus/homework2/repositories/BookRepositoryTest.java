@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import reactor.test.StepVerifier;
 import ru.khorunzhev.otus.homework2.model.Author;
 import ru.khorunzhev.otus.homework2.model.Book;
 import ru.khorunzhev.otus.homework2.model.Genre;
@@ -22,23 +23,23 @@ public class BookRepositoryTest {
 
     @Test
     void checkFindBookMethod() {
-        Author author = Author.builder().fullName("FIO").build();
+        Author author = Author.builder().fullName("test-FIO").build();
         mt.save(author);
 
-        Genre genre = Genre.builder().name("genre").build();
+        Genre genre = Genre.builder().name("test-genre").build();
         mt.save(genre);
 
         Book expectedBook = Book.builder()
-                .title("TITLE")
+                .title("test-TITLE")
                 .author(author)
                 .genre(genre)
                 .build();
-
         mt.save(expectedBook);
 
-        Book actualBook = bookRepository.findBookByTitle(expectedBook.getTitle()).block();
-
-        Assertions.assertEquals(expectedBook, actualBook, "The books are not identical");
+        StepVerifier
+            .create(bookRepository.findBookByTitle(expectedBook.getTitle()))
+            .expectNext(expectedBook)
+            .verifyComplete();
     }
 
 }
