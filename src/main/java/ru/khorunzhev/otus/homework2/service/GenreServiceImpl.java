@@ -8,6 +8,8 @@ import reactor.core.publisher.Mono;
 import ru.khorunzhev.otus.homework2.repositories.GenreRepository;
 import ru.khorunzhev.otus.homework2.model.Genre;
 
+import java.util.concurrent.CompletableFuture;
+
 @Service
 @RequiredArgsConstructor
 public class GenreServiceImpl implements GenreService {
@@ -23,14 +25,14 @@ public class GenreServiceImpl implements GenreService {
     @Transactional
     @Override
     public Mono<Genre> createGenre(String name) {
-        Mono<Genre> dbGenre = genreRepository.findByName(name);
-        if (dbGenre == null) {
-            Genre newGenre = Genre.builder().name(name).build();
-            return genreRepository.save(newGenre);
-        } else {
-            return dbGenre;
-        }
+        return genreRepository
+                .findByName(name)
+                .switchIfEmpty(
+                        Mono.defer(() -> genreRepository
+                                .save(Genre.builder().name(name).build()))
+                );
     }
+
 
     @Override
     public Flux<Genre> getAllGenres() {
