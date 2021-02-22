@@ -22,7 +22,7 @@ public class MongoCommentCascadeDeleteEventsListener extends AbstractMongoEventL
         val id = source.get("_id").toString();
         bookRepository
                 .removeCommentArrayElementsById(id)
-                .block();
+                .subscribe();
     }
 
     @Override
@@ -31,6 +31,6 @@ public class MongoCommentCascadeDeleteEventsListener extends AbstractMongoEventL
         Comment source = event.getSource();
         bookRepository
                 .updateCommentArrayElementsById(source)
-                .block();
+                .subscribe();
     }
 }

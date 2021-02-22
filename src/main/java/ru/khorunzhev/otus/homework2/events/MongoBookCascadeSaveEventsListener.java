@@ -26,9 +26,9 @@ public class MongoBookCascadeSaveEventsListener extends AbstractMongoEventListen
         val book = event.getSource();
         if (book.getComments() != null) {
             book.getComments()
-                .stream()
-                .filter(e -> Objects.isNull(e.getId()))
-                .forEach(commentRepository::save);
+                    .stream()
+                    .filter(e -> Objects.isNull(e.getId()))
+                    .forEach((comment) -> commentRepository.save(comment).subscribe() );
         }
     }
 
@@ -41,7 +41,8 @@ public class MongoBookCascadeSaveEventsListener extends AbstractMongoEventListen
                 .subscribe(book -> {
                     if (book.getComments() != null)
                         book.getComments()
-                                .forEach(commentRepository::delete);
+                                .forEach((comment) ->
+                                        commentRepository.delete(comment).subscribe());
                 });
     }
 }
