@@ -19,13 +19,13 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public Mono updateBook(Book book) {
+    public Mono<Book> updateBook(Book book) {
         return bookRepository.save(book);
     }
 
     @Transactional
     @Override
-    public Mono deleteBook(String id) {
+    public Mono<Void> deleteBook(String id) {
         return bookRepository.deleteById(id);
     }
 

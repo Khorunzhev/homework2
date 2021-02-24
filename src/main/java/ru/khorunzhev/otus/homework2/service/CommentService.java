@@ -7,8 +7,8 @@ import ru.khorunzhev.otus.homework2.model.Comment;
 
 public interface CommentService {
 
-    Mono<Book> createComment(String text, String bookTitle);
+    Mono<Comment> createComment(String text, String bookTitle);
     Mono updateComment(String id, String newText);
-    Mono deleteComment(String id);
+    Mono<Void> deleteComment(String id);
     Flux<Comment> getAllComments();
 }

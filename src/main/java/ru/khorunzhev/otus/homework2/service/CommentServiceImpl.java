@@ -20,36 +20,36 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public Mono createComment(String text, String bookTitle) {
+    public Mono<Comment> createComment(String text, String bookTitle) {
         return bookService.getBookByTitle(bookTitle)
                 .switchIfEmpty(Mono.empty())
-                .map(book -> {
+                .flatMap(book -> {
                     Comment comment = Comment.builder().text(text).build();
                     book.getComments().add(comment);
-                    commentRepository.save(comment);
-                    return bookService.updateBook(book);
-                });
-    }
-
-    @Transactional
-    @Override
-    public Mono updateComment(String id, String newText) {
-        return commentRepository.findById(id)
-                .switchIfEmpty(Mono.empty())
-                .map(comment -> {
-                    comment.setText(newText);
+                    bookService.updateBook(book);
                     return commentRepository.save(comment);
                 });
     }
 
     @Transactional
     @Override
-    public Mono deleteComment(String id) {
+    public Mono<Void> updateComment(String id, String newText) {
         return commentRepository.findById(id)
                 .switchIfEmpty(Mono.empty())
-                .map(comment -> {
-                   return deleteComment(comment.getId());
-                });
+                .doOnNext(comment -> {
+                    comment.setText(newText);
+                    commentRepository.save(comment);
+                })
+                .then();
+    }
+
+    @Transactional
+    @Override
+    public Mono<Void> deleteComment(String id) {
+        return commentRepository.findById(id)
+                .switchIfEmpty(Mono.empty())
+                .doOnNext(commentRepository::delete)
+                .then();
     }
 
     @Transactional(readOnly = true)

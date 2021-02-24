@@ -7,7 +7,7 @@ import ru.khorunzhev.otus.homework2.model.Genre;
 public interface GenreService {
 
     Mono<Genre> getGenre(String title);
-    Mono createGenre(String title);
+    Mono<Genre> createGenre(String title);
     Flux<Genre> getAllGenres();
 
 }

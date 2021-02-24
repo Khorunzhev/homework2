@@ -1,6 +1,8 @@
 package ru.khorunzhev.otus.homework2.repositories;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.client.result.UpdateResult;
+import com.mongodb.internal.bulk.UpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -16,7 +18,7 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
     private final ReactiveMongoTemplate mongoTemplate;
 
     @Override
-    public Mono removeCommentArrayElementsById(String id) {
+    public Mono<UpdateResult> removeCommentArrayElementsById(String id) {
          Update update =
                 new Update().pull("comments",
                         new BasicDBObject("id", id));
@@ -25,7 +27,7 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
 
 
     @Override
-    public Mono updateCommentArrayElementsById(Comment newComment) {
+    public Mono<UpdateResult> updateCommentArrayElementsById(Comment newComment) {
         return mongoTemplate.updateMulti(
                 new Query(Criteria.where("comments._id").is(newComment.getId())),
                 new Update().set("comments.$.text", newComment.getText()),
