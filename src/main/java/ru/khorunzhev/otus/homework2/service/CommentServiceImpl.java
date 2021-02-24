@@ -21,14 +21,14 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     @Override
     public Mono<Comment> createComment(String text, String bookTitle) {
+        Comment comment = Comment.builder().text(text).build();
         return bookService.getBookByTitle(bookTitle)
                 .switchIfEmpty(Mono.empty())
                 .flatMap(book -> {
-                    Comment comment = Comment.builder().text(text).build();
                     book.getComments().add(comment);
-                    bookService.updateBook(book);
-                    return commentRepository.save(comment);
-                });
+                    return bookService.updateBook(book);
+                })
+                .flatMap((book) -> commentRepository.save(comment));
     }
 
     @Transactional
