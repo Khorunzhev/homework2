@@ -33,14 +33,13 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public Mono<Void> updateComment(String id, String newText) {
+    public Mono<Comment> updateComment(String id, String newText) {
         return commentRepository.findById(id)
                 .switchIfEmpty(Mono.empty())
                 .doOnNext(comment -> {
                     comment.setText(newText);
                     commentRepository.save(comment);
-                })
-                .then();
+                });
     }
 
     @Transactional
