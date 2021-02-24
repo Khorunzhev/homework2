@@ -36,9 +36,9 @@ public class CommentServiceImpl implements CommentService {
     public Mono<Comment> updateComment(String id, String newText) {
         return commentRepository.findById(id)
                 .switchIfEmpty(Mono.empty())
-                .doOnNext(comment -> {
+                .flatMap(comment -> {
                     comment.setText(newText);
-                    commentRepository.save(comment);
+                    return commentRepository.save(comment);
                 });
     }
 
