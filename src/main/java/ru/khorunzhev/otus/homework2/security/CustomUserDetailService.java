@@ -1,4 +1,4 @@
-package ru.khorunzhev.otus.homework2.service;
+package ru.khorunzhev.otus.homework2.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
