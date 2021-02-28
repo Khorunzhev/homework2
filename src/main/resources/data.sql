@@ -10,4 +10,4 @@ insert into BOOK (`TITLE`, AUTHOR_ID, GENRE_ID) values ('NAME3', 1, 1);
 
 insert into COMMENT (`TEXT`, BOOK_ID) values ('Коммент', 1);
 
-insert into USERS (`USERNAME`, `PASSWORD`) values ('admin', 'admin1');
+insert into USERS (`USERNAME`, `PASSWORD`) values ('admin', '$2a$10$R7NIY9xaunw5K6IisHZxaOFqCCJAo4d1U7nKTEDEC.4z4MVZqGyO.');

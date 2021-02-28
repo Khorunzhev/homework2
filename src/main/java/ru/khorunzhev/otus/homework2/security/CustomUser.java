@@ -2,6 +2,7 @@ package ru.khorunzhev.otus.homework2.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ru.khorunzhev.otus.homework2.model.User;
 
 import java.util.Collection;
