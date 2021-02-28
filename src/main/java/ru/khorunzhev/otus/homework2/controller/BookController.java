@@ -26,14 +26,14 @@ public class BookController {
     private final GenreService genreService;
     private final AuthorService authorService;
 
-    @GetMapping("/")
+    @GetMapping("/books")
     public String listPage(Model model) {
         List<Book> books = bookService.getAllBooks();
         model.addAttribute("books", books);
         return "list";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/books/create")
     public String createBook(Model model) {
         List<Genre> genres = genreService.getAllGenres();
         model.addAttribute("genres", genres);
@@ -46,13 +46,13 @@ public class BookController {
         return "edit";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/books/create")
     public String editPage(Book book) {
         bookService.updateBook(book);
         return "redirect:/";
     }
 
-    @GetMapping("/edit")
+    @GetMapping("/books/edit")
     public String editPage(@RequestParam("id") Long id, Model model) {
         Book book = bookService.getBookById(id).orElseThrow(NotFoundException::new);
         model.addAttribute("book", book);
@@ -66,14 +66,14 @@ public class BookController {
         return "edit";
     }
     
-    @PostMapping("/edit")
+    @PostMapping("/books/edit")
     public String saveBook(Book book, Model model) {
         Book saved = bookService.updateBook(book);
         model.addAttribute(saved);
         return "redirect:/";
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/books/delete")
     public String deleteBook(@RequestParam("id") Long id) {
         bookService.deleteBook(id);
         return "redirect:/";
