@@ -24,4 +24,8 @@ public class User {
 
     private String password;
 
+    @Enumerated(value = EnumType.STRING)
+    @Column
+    private Role role;
+
 }

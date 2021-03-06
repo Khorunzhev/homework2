@@ -22,7 +22,7 @@ public class CustomUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
-        return new CustomUser(user);
+        return CustomUser.fromUser(user);
     }
 
 }
