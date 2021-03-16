@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.util.function.Tuple2;
+import ru.khorunzhev.otus.homework2.model.Book;
 import ru.khorunzhev.otus.homework2.model.Comment;
 import ru.khorunzhev.otus.homework2.repositories.CommentRepository;
 
@@ -24,11 +26,12 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = Comment.builder().text(text).build();
         return bookService.getBookByTitle(bookTitle)
                 .switchIfEmpty(Mono.empty())
-                .flatMap(book -> {
-                    book.getComments().add(comment);
-                    return bookService.updateBook(book);
-                })
-                .flatMap((book) -> commentRepository.save(comment));
+                .zipWith(commentRepository.save(comment))
+                .map(tuple2 -> {
+                    tuple2.getT1().getComments().add(tuple2.getT2());
+                    bookService.updateBook(tuple2.getT1());
+                    return tuple2.getT2();
+                });
     }
 
     @Transactional
