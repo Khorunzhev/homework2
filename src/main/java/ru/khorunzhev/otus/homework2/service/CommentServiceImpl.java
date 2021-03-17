@@ -27,11 +27,11 @@ public class CommentServiceImpl implements CommentService {
         return bookService.getBookByTitle(bookTitle)
                 .switchIfEmpty(Mono.empty())
                 .zipWith(commentRepository.save(comment))
-                .map(tuple2 -> {
+                .flatMap(tuple2 -> {
                     tuple2.getT1().getComments().add(tuple2.getT2());
-                    bookService.updateBook(tuple2.getT1());
-                    return tuple2.getT2();
-                });
+                    return bookService.updateBook(tuple2.getT1());
+                })
+                .thenReturn(comment);
     }
 
     @Transactional
