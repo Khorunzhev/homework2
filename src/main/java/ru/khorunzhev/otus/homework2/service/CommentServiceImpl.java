@@ -31,7 +31,10 @@ public class CommentServiceImpl implements CommentService {
                     tuple2.getT1().getComments().add(tuple2.getT2());
                     return bookService.updateBook(tuple2.getT1());
                 })
-                .thenReturn(comment);
+                .map(book -> book.getComments().stream()
+                        .filter(bookComment -> comment.getText().equals(bookComment.getText()))
+                        .findAny()
+                        .orElse(null));
     }
 
     @Transactional
