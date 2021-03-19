@@ -60,6 +60,12 @@
         </select>
     </div>
 
+
+    <th:block th:each="comment,loop : *{comments}">
+        <input type="hidden" id="hiddenName" th:field="*{comments[__${loop.index}__].id}" th:value="*{comments[__${loop.index}__].id}">
+        <input type="hidden" id="hiddenValue" th:field="*{comments[__${loop.index}__].text}" th:value="*{comments[__${loop.index}__].text}">
+    </th:block>
+
     <div class="row">
         <button type="submit" th:if="${book.id != null}">Edit</button>
         <button type="submit" th:if="${book.id == null}">Create</button>
