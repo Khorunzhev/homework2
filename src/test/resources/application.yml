@@ -1,0 +1,15 @@
+spring:
+  data:
+    mongodb:
+      host: 127.0.0.1
+      port: 0
+      database: library
+
+mongock:
+  runner-type: "InitializingBean"
+  change-logs-scan-package:
+    - ru.khorunzhev.otus.homework2.testchangelog
+
+logging:
+  level:
+    ROOT: ERROR
