@@ -30,8 +30,8 @@ public class CommentServiceImpl implements CommentService {
                 .flatMap(tuple2 -> {
                     tuple2.getT1().getComments().add(tuple2.getT2());
                     return bookService.updateBook(tuple2.getT1())
-                            .zipWith(Mono.just(tuple2.getT2()));})
-                .map(Tuple2::getT2);
+                            .map(book -> tuple2.getT2());
+                });
     }
 
     @Transactional
