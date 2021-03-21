@@ -29,12 +29,9 @@ public class CommentServiceImpl implements CommentService {
                 .zipWith(commentRepository.save(comment))
                 .flatMap(tuple2 -> {
                     tuple2.getT1().getComments().add(tuple2.getT2());
-                    return bookService.updateBook(tuple2.getT1());
-                })
-                .map(book -> book.getComments().stream()
-                        .filter(bookComment -> comment.getText().equals(bookComment.getText()))
-                        .findAny()
-                        .orElse(null));
+                    return bookService.updateBook(tuple2.getT1())
+                            .zipWith(Mono.just(tuple2.getT2()));})
+                .map(Tuple2::getT2);
     }
 
     @Transactional
