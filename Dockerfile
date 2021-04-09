@@ -7,4 +7,4 @@ ADD ./pom.xml $PROJECT_DIR
 RUN mvn dependency:resolve
 ADD ./src/ $PROJECT_DIR/src
 RUN mvn install
-CMD ["tree", "-fi"]
+CMD ["sleep", "1d"]
