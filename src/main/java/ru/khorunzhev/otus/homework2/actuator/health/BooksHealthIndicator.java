@@ -32,5 +32,4 @@ public class BooksHealthIndicator implements HealthIndicator {
             return Health.up().withDetail("message", BOOK_EXIST).build();
         }
     }
-
 }
