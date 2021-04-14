@@ -29,5 +29,8 @@ spring:
     show-sql: true
 
 logging:
+  file:
+    name: server.log
+    path: /var/log
   level:
-    ROOT: ERROR
+    ROOT: INFO
