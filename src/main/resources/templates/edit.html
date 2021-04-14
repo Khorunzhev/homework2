@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Book form</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        input:read-only {
+            background: lightgray;
+        }
+
+        .row {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Book edition -->
+<div>
+    <h1 th:if="${book.id != null}">Edit book:</h1>
+    <h1 th:if="${book.id == null}">Create book:</h1>
+    <form id="edit-form" th:action="${book.id} != null ? '/edit' : '/create'" th:object="${book}" th:method="post" action="edit.html">
+
+    <div th:if="${book.id != null}" class="row">
+        <label for="id-input">ID:</label>
+        <input id="id-input" name="id" type="text" readonly="readonly" th:value="*{id}?: ''" value="1"/>
+    </div>
+
+    <div class="row">
+        <label for="title-input">Title:</label>
+        <input id="title-input" name="title" type="text" th:value="${book != null} ? (${book.title} ?: '') : ''" value="Ivan"/>
+    </div>
+
+        <div class="row">
+            <label for="author-input">Author:</label>
+            <select id="author-input" class="form-control" th:field="*{author}">
+                <option th:each="author : ${authors}"
+                        th:value="${author.id}"
+                        th:text="${author.fullName}"
+                        th:selected="${book != null} ? (${book.author} != null ? ${author.equals(book.author)} : false) : false"></option>
+            </select>
+        </div>
+
+        <div class="row">
+            <label for="genre-input">Genre:</label>
+            <select id="genre-input" class="form-control" th:field="*{genre}">
+                <option th:each="genre : ${genres}"
+                        th:value="${genre.id}"
+                        th:text="${genre.name}"
+                        th:selected="${book != null} ? (${book.genre} != null ? ${genre.equals(book.genre)} : false) : false"></option>
+            </select>
+        </div>
+
+        <div class="row">
+            <button type="submit" th:if="${book.id != null}">Edit</button>
+            <button type="submit" th:if="${book.id == null}">Create</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
