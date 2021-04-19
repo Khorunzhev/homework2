@@ -26,6 +26,9 @@ public class BookServiceImpl implements BookService {
 
 
     @Transactional
+    @HystrixCommand(fallbackMethod = "getDefaultBook", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
+    })
     @Override
     public Book updateBook(Book book) {
         Book savedBook = bookRepository.save(book);
@@ -41,18 +44,23 @@ public class BookServiceImpl implements BookService {
     }
 
     @Transactional(readOnly = true)
+    @HystrixCommand(fallbackMethod = "getDefaultBook", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
+    })
     @Override
     public Book getBookByTitle(String title) {
         return bookRepository.findBookByTitle(title);
     }
 
     @Transactional(readOnly = true)
+    @HystrixCommand(fallbackMethod = "getDefaultBook", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
+    })
     @Override
     public Optional<Book> getBookById(Long id) {
         return bookRepository.findById(id);
     }
 
-    @SneakyThrows
     @Transactional(readOnly = true)
     @HystrixCommand(fallbackMethod = "getDefaultBooks", commandProperties = {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
@@ -63,7 +71,7 @@ public class BookServiceImpl implements BookService {
     }
 
     public List<Book> getDefaultBooks() {
-        log.warning("БД недоступно, отдается дефолтный список книг");
+        log.warning("БД недоступно, пользователю отдается дефолтный список книг");
         return List.of(
                 new Book(-1L,
                         "Default book",
@@ -71,5 +79,15 @@ public class BookServiceImpl implements BookService {
                         new Genre(-1L, "Default genre"),
                         Set.of(new Comment(-1l, "text", null)))
         );
+    }
+
+
+    public Book getDefaultBook() {
+        log.warning("БД недоступно, пользователю отдается дефолтная книга");
+        return new Book(-1L,
+                "Default book",
+                new Author(-1L, "Default author"),
+                new Genre(-1L, "Default genre"),
+                Set.of(new Comment(-1l, "text", null)));
     }
 }
