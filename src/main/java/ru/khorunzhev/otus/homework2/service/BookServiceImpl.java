@@ -1,6 +1,9 @@
 package ru.khorunzhev.otus.homework2.service;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +15,7 @@ import ru.khorunzhev.otus.homework2.model.Genre;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -48,9 +52,24 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findById(id);
     }
 
+    @SneakyThrows
     @Transactional(readOnly = true)
+    @HystrixCommand(fallbackMethod = "getDefaultBooks", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
+    })
     @Override
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
+    }
+
+    public List<Book> getDefaultBooks() {
+        log.warning("БД недоступно, отдается дефолтный список книг");
+        return List.of(
+                new Book(-1L,
+                        "Default book",
+                        new Author(-1L, "Default author"),
+                        new Genre(-1L, "Default genre"),
+                        Set.of(new Comment(-1l, "text", null)))
+        );
     }
 }
